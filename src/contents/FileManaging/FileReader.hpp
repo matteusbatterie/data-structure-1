@@ -4,30 +4,27 @@
 
 using namespace std;
 
-namespace FileConfiguration
+namespace FileConfiguration::Util
 {
-    namespace Util
+    class FileReader
     {
-        class FileReader
-        {
-            private:
+    private:
 
-            public:
-            FileReader() {}
-            ~FileReader() {}
+    public:
+        FileReader() {}
+        ~FileReader() {}
 
-            void read(string fileName) {
-                string line;
-                ifstream myfile(fileName + ".txt");
-                if (myfile.is_open())
-                {
-                    while (getline(myfile,line))
-                        cout << line << '\n';
+        void read(string fileName) {
+            string line;
+            ifstream myfile(fileName + ".txt");
+            if (myfile.is_open())
+            {
+                while (getline(myfile, line))
+                    cout << line << '\n';
 
-                    myfile.close();
-                }
-                else cout << "Unable to open file"; 
+                myfile.close();
             }
-        };
-    }
+            else cout << "Unable to open file";
+        }
+    };
 }

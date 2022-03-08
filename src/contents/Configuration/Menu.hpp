@@ -1,20 +1,15 @@
-
-
-namespace Configuration
+namespace Configuration::Interface
 {
-    namespace Interface
+    class Menu
     {
-        class Menu
-        {
-            private:
+    private:
 
-            public:
-            Menu() {}
-            ~Menu() {}
+    public:
+        Menu() {}
+        ~Menu() {}
 
-            void init() {
-                
-            }
-        };
-    }
+        void init() {
+
+        }
+    };
 }

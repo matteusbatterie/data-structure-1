@@ -3,27 +3,24 @@
 
 using namespace std;
 
-namespace FileConfiguration
+namespace FileConfiguration::Util
 {
-    namespace Util
+    class FileWriter
     {
-        class FileWriter
-        {
-            private:
+    private:
 
-            public:
-            FileWriter() {}
-            ~FileWriter() {}
+    public:
+        FileWriter() {}
+        ~FileWriter() {}
 
-            void write(string line, string fileName) {
-                ofstream myfile (fileName + ".txt");
-                if (myfile.is_open())
-                {
-                    myfile << line << endl;
-                    myfile.close();
-                }
-                else cout << "Unable to open file";
+        void write(string line, string fileName) {
+            ofstream myfile(fileName + ".txt");
+            if (myfile.is_open())
+            {
+                myfile << line << endl;
+                myfile.close();
             }
-        };
-    }
+            else cout << "Unable to open file";
+        }
+    };
 }

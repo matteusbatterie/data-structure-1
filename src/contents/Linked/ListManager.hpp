@@ -2,36 +2,30 @@
 
 using DataStructure::Query::Linked::Util::Node;
 
-namespace DataStructure
+namespace DataStructure::Query::Linked
 {
-    namespace Query
+    template <class T>
+    class ListManager
     {
-        namespace Linked
-        {
-            template <class T>
-            class ListManager
-            {
-                private:
-                Node<T>* _first;
-                Node<T>* _last;
-                
-                public:
-                ListManager() {
-                    this->_first = nullptr;
-                    this->_last = nullptr;
-                }
-                ~ListManager() {}
+    private:
+        Node<T>* _first;
+        Node<T>* _last;
 
-                Node<T>* first() const { return this->_first; }
-
-                Node<T>* last() const { return this->_last; }
-
-                void append(T data) {}
-                void insert(T data, int position) {}
-
-                void pop() {}
-                void remove(int position) {}
-            };
+    public:
+        ListManager() {
+            this->_first = nullptr;
+            this->_last = nullptr;
         }
-    }
+        ~ListManager() {}
+
+        Node<T>* first() const { return this->_first; }
+
+        Node<T>* last() const { return this->_last; }
+
+        void append(T data) {}
+        void insert(T data, int position) {}
+
+        void pop() {}
+        void remove(int position) {}
+    };
 }
