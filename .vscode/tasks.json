@@ -1,6 +1,4 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558 
-    // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
         {
@@ -12,6 +10,24 @@
                 "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "g++ build _main file",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-g", 
+                "${workspaceFolder}/src/_main.cpp",
+                "-o", 
+                "${workspaceFolder}/src/_main"
             ],
             "options": {
                 "cwd": "/usr/bin"
