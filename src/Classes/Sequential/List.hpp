@@ -19,11 +19,11 @@ namespace DataStructure::Query::Sequential
 
     public:
         List() {
-            this->_first = new T;
+            this->_first = new T[0];
             this->_size = 0;
         }
         ~List() {
-            delete this->_first;
+            delete[] this->_first;
         }
 
         unsigned int size() const { return this->_size; }
@@ -74,7 +74,7 @@ namespace DataStructure::Query::Sequential
         newList[_size - 1] = data;
         const string test3 = newList[_size - 1];
 
-        delete _first;
+        delete[] _first;
         _first = newList;
     }
 }
