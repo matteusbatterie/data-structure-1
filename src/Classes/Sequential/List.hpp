@@ -3,10 +3,8 @@
 #include <iostream>
 #include <typeinfo>
 #include <string>
-#include "../Util/Converter.hpp"
 
 using namespace std;
-using namespace Utilities;
 
 namespace DataStructure::Query::Sequential
 {
@@ -34,17 +32,17 @@ namespace DataStructure::Query::Sequential
                 return os << "Empty list.";
             }
 
-            string output = "[" + Converter::toString(list._first[0]) + "]";
+            os << "[" << list._first[0] << "]";
 
             unsigned int counter = 1;
             for (T* iterator = list._first;
                 counter < list._size;
                 counter++)
             {
-                output = output + "\n[" + Converter::toString(iterator[counter]) + "]";
+                os << endl << "[" << iterator[counter] << "]";
             }
 
-            return os << output;
+            return os;
         }
 
         void append(T data);
@@ -66,13 +64,9 @@ namespace DataStructure::Query::Sequential
             index < _size - 1;
             index++)
         {
-            const string test1 = newList[index];
-            const string test2 = _first[index];
-
             newList[index] = _first[index]; 
         }
         newList[_size - 1] = data;
-        const string test3 = newList[_size - 1];
 
         delete[] _first;
         _first = newList;

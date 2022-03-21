@@ -1,16 +1,17 @@
 #include <iostream>
 #include <sstream>
+#include <string>
 #include "./Classes/Sequential/List.hpp"
 #include "./Classes/FileManaging/FileManager.hpp"
 #include "./Constants/FilesNames.hpp"
+#include "./Classes/Entities/Person.hpp"
 
 
-using std::cout;
-using std::endl;
-using std::stringstream;
+using namespace std;
 using namespace DataStructure::Query;
 using namespace Constants::PeopleFilesNames;
 using namespace FileConfiguration;
+using namespace Entities;
 
 void firstPresentation();
 void terminateApplication();
@@ -27,24 +28,30 @@ int main()
 void terminateApplication()
 {
     cout << endl << endl << endl << "Application terminated." << endl << endl << endl;
-    system("pause");
+    getchar();
 }
 
 void firstPresentation()
 {
-    // const auto [fileName, fileType] = NAME_AND_ID_10;
-    const string fileName = NAME_AND_ID_10.name;
-    const string fileType = NAME_AND_ID_10.type;
-    Sequential::List<string> sequentialList = Sequential::List<string>();
+    auto [fileName, fileType] = NAME_AND_ID_10;;
+    
+    Sequential::List<Person> sequentialList = Sequential::List<Person>();
 
     FileManager fileManager;
     const string peopleStr = fileManager.read(fileName + "." + fileType);
 
     int i = 0;
     stringstream ssin(peopleStr);
-    string peopleArr[10];
+    Person peopleArr[10];
     while (ssin.good() && i < 10) {
-        ssin >> peopleArr[i];
+        string personName;
+        string personIdStr;
+
+        getline(ssin, personName, ',');
+        getline(ssin, personIdStr);
+
+        peopleArr[i] = Person(stoi(personIdStr.c_str()), personName);
+
         ++i;
     }
 

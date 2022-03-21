@@ -5,8 +5,8 @@ using std::string;
 
 struct File
 {
-    string name;
-    string type;
+    const string name;
+    const string type;
 };
 
 namespace Constants
