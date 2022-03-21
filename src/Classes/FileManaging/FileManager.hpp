@@ -28,6 +28,7 @@ namespace FileConfiguration
 
         string read(string fileName) { return _reader->read(fileName); }
         Array<string> readAsArray(string fileName) { return _reader->readAsArray(fileName); }
+        List<string> readAsList(string fileName) { }
 
         void write(string line, string fileName) { _writer->write(line, fileName); }
     };

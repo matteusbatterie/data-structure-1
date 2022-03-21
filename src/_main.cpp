@@ -33,7 +33,7 @@ void terminateApplication()
 
 void firstPresentation()
 {
-    auto [fileName, fileType] = NAME_AND_ID_10;;
+    auto [fileName, fileType] = NAME_AND_ID_10;
     
     Sequential::List<Person> sequentialList = Sequential::List<Person>();
 
