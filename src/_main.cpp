@@ -60,6 +60,5 @@ void firstPresentation()
         sequentialList.append(person);
     }
 
-
     cout << sequentialList << endl;
 }
