@@ -1,3 +1,5 @@
+#pragma once
+
 namespace DataStructure::Query::Linked::Util
 {
     template <class T>

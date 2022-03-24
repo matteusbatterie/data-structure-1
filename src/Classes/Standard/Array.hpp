@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Standard
+namespace Standard::Query
 {
     template <class T>
     class Array
@@ -24,6 +24,7 @@ namespace Standard
         T* rawArray() const { return this->_array; }
         unsigned long int size() const { return this->_size; }
 
+        // implement new and delete instead of malloc and realloc
         void insert(T newItem) {
             _array = (T*)realloc(_array, (++_size) * sizeof(T));
             _array[_size - 1] = newItem;

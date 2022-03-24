@@ -3,6 +3,8 @@
 #include <iostream>
 #include <typeinfo>
 #include <string>
+#include <algorithm>
+#include "../Entities/Person.hpp"
 
 using namespace std;
 
@@ -16,6 +18,11 @@ namespace DataStructure::Query::Sequential
         unsigned int _size;
 
     public:
+        List(const List<T>& copy) {
+            _first = new T[copy.size()];
+            std::copy(copy._first, copy._first + copy.size(), _first);
+            _size = copy._size;
+        }
         List() {
             this->_first = new T[0];
             this->_size = 0;
@@ -24,14 +31,26 @@ namespace DataStructure::Query::Sequential
             delete[] this->_first;
         }
 
-        unsigned int size() const { return this->_size; }
-        void size(const int newSize) { this->_size = newSize; }
 
-        friend ostream& operator<<(ostream& os, const List<T>& list) {
+        unsigned int size() const { return this->_size; }
+
+        void append(T data);
+        void insert(T data, int position);
+
+        void pop();
+        void remove(int position);
+
+        void find(T data);
+        void findAt(int position);
+
+        friend ostream& operator<<(ostream& os, const List<T>& list)
+        {
             if (list._size < 1) {
                 return os << "Empty list.";
             }
 
+            Entities::Person person = list._first[0];
+            const string test = person.name();
             os << "[" << list._first[0] << "]";
 
             unsigned int counter = 1;
@@ -45,14 +64,19 @@ namespace DataStructure::Query::Sequential
             return os;
         }
 
-        void append(T data);
-        void insert(T data, int position);
+        List<T>& operator=(const List<T>& copy)
+        {
+            if (this == &copy)
+                return *this;
 
-        void pop();
-        void remove(int position);
+            delete[] _first;
 
-        void find(T data);
-        void findAt(int postheition);
+            this->_size = copy.size();
+            this->_first = new T[_size];
+            std::copy(copy._first, copy._first + copy.size(), _first);
+
+            return *this;
+        }
     };
 
     template <class T>
@@ -64,7 +88,7 @@ namespace DataStructure::Query::Sequential
             index < _size - 1;
             index++)
         {
-            newList[index] = _first[index]; 
+            newList[index] = _first[index];
         }
         newList[_size - 1] = data;
 
@@ -72,4 +96,3 @@ namespace DataStructure::Query::Sequential
         _first = newList;
     }
 }
-
