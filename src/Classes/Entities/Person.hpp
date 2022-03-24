@@ -2,7 +2,9 @@
 #include <string>
 #include <iostream>
 
-using namespace std;
+using std::string;
+using std::to_string;
+using std::ostream;
 
 namespace Entities
 {

@@ -1,8 +1,6 @@
 #pragma once
-#include <stdlib.h>
-#include <iostream>
-#include <typeinfo>
 #include <string>
+#include <iostream>
 #include <algorithm>
 #include "../Entities/Person.hpp"
 
@@ -15,7 +13,7 @@ namespace DataStructure::Query::Sequential
     {
     private:
         T* _first;
-        unsigned int _size;
+        unsigned long _size;
 
     public:
         List(const List<T>& copy) {
@@ -31,8 +29,7 @@ namespace DataStructure::Query::Sequential
             delete[] this->_first;
         }
 
-
-        unsigned int size() const { return this->_size; }
+        unsigned long size() const { return this->_size; }
 
         void append(T data);
         void insert(T data, int position);
@@ -43,40 +40,10 @@ namespace DataStructure::Query::Sequential
         void find(T data);
         void findAt(int position);
 
-        friend ostream& operator<<(ostream& os, const List<T>& list)
-        {
-            if (list._size < 1) {
-                return os << "Empty list.";
-            }
-
-            Entities::Person person = list._first[0];
-            const string test = person.name();
-            os << "[" << list._first[0] << "]";
-
-            unsigned int counter = 1;
-            for (T* iterator = list._first;
-                counter < list._size;
-                counter++)
-            {
-                os << endl << "[" << iterator[counter] << "]";
-            }
-
-            return os;
-        }
-
-        List<T>& operator=(const List<T>& copy)
-        {
-            if (this == &copy)
-                return *this;
-
-            delete[] _first;
-
-            this->_size = copy.size();
-            this->_first = new T[_size];
-            std::copy(copy._first, copy._first + copy.size(), _first);
-
-            return *this;
-        }
+        // Operators overload methods
+        template <class E>
+        friend ostream& operator<<(ostream&, const List<E>& list);
+        List<T>& operator=(const List<T>& copy);
     };
 
     template <class T>
@@ -94,5 +61,38 @@ namespace DataStructure::Query::Sequential
 
         delete[] _first;
         _first = newList;
+    }
+
+    template<class T>
+    ostream& operator<<(ostream& os, const List<T>& list)
+    {
+        if (list.size() < 1)
+            return os << "Empty list.";
+
+        os << "[" << list._first[0] << "]";
+
+        T* iterator = list._first;
+        for (unsigned int counter = 1;
+            counter < list.size();
+            counter++)
+        {
+            os  << "\n[" << iterator[counter] << "]";
+        }
+
+        return os;
+    }
+
+    template<class T>
+    List<T>& List<T>::operator=(const List<T>& copy)
+    {
+        if (this == &copy) return *this;
+
+        delete[] _first;
+
+        this->_size = copy.size();
+        this->_first = new T[_size];
+        std::copy(copy._first, copy._first + copy.size(), _first);
+
+        return *this;
     }
 }

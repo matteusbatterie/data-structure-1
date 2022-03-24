@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 
-using namespace std;
+using std::string;
 
 namespace FileConfiguration::Util
 {
@@ -20,7 +20,7 @@ namespace FileConfiguration::Util
                 myfile << line << endl;
                 myfile.close();
             }
-            else cout << "Unable to open file";
+            else cout << "Unable to open file\n";
         }
     };
 }

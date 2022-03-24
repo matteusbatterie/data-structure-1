@@ -8,91 +8,90 @@
 #include "../Linked/List.hpp"
 #include "../Entities/Person.hpp"
 
-using namespace std;
+using std::string;
 using namespace Standard::Query;
 using namespace DataStructure::Query;
 using namespace Entities;
 
 namespace FileConfiguration::Util
 {
+    const string PATH = "./database/";
+
     class FileReader
     {
-    private:
-        const string PATH = "./database/";
-
     public:
         FileReader() {}
         ~FileReader() {}
 
-        string read(const string fileName) {
-            ifstream file;
-            stringstream buffer;
+        string read(const string fileName);
+        Array<string> readAsArray(const string fileName);
+        Sequential::List<Person> readAsListSequential(const string fileName);
+        Linked::List<Person> readAsListLinked(const string fileName);
+    };
 
-            file.open(PATH + fileName);
-            buffer << file.rdbuf();
+    string FileReader::read(const string fileName)
+    {
+        ifstream file;
+        stringstream buffer;
 
-            return buffer.str();
-        }
-        
-        Array<string> readAsArray(const string fileName) {
-            Array<string> array;
-            ifstream file;
-            file.open(PATH + fileName);
+        file.open(PATH + fileName);
+        buffer << file.rdbuf();
 
-            if (file.is_open())
-            {
-                string line;
-                while (getline(file, line))
-                    array.insert(line);
+        return buffer.str();
+    }
+    
+    Array<string> FileReader::readAsArray(const string fileName) {
+        Array<string> array;
+        ifstream file;
+        file.open(PATH + fileName);
 
-                file.close();
-            }
-            else cout << "Unable to open file." << endl;
-
-            for (unsigned int index = 0;
-                index < array.size();
-                index++)
-            {
-
-            }
-
-            return array;
-        }
-
-        Sequential::List<Person> readAsListSequential(const string fileName) {
-            Sequential::List<Person> list = Sequential::List<Person>();
-            ifstream file;
-            file.open(PATH + fileName);
-
-            if (!file.is_open()) {
-                cout << "Unable to open file." << endl;
-                return list;
-            }
-
-            while (file.good() && !file.eof())
-            {
-                string personName;
-                string personIdStr;
-
-                getline(file, personName, ',');
-                getline(file, personIdStr);
-
-                if (file.eof())
-                    break;
-
-                Person person = Person{
-                    stoul(personIdStr, nullptr, 0),
-                    personName
-                };
-                list.append(person);
-            }
+        if (file.is_open())
+        {
+            string line;
+            while (getline(file, line))
+                array.insert(line);
 
             file.close();
+        }
+        else cout << "Unable to open file.\n";
+
+        return array;
+    }
+    
+    Sequential::List<Person> FileReader::readAsListSequential(const string fileName)
+    {
+        Sequential::List<Person> list = Sequential::List<Person>();
+        ifstream file;
+        file.open(PATH + fileName);
+
+        if (!file.is_open()) {
+            cout << "Unable to open file.\n";
             return list;
         }
 
-        Linked::List<Person> readAsListLinked(const string fileName) {
-            // to be implemented
+        while (file.good() && !file.eof())
+        {
+            string personName;
+            string personIdStr;
+
+            getline(file, personName, ',');
+            getline(file, personIdStr);
+
+            if (file.eof())
+                break;
+
+            Person person = Person{
+                stoul(personIdStr, nullptr, 0),
+                personName
+            };
+            list.append(person);
         }
-    };
+
+        file.close();
+        return list;
+    }
+
+    Linked::List<Person> FileReader::readAsListLinked(const string fileName) {
+        // to be implemented
+    }
 }
