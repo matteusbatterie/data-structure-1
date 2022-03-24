@@ -1,7 +1,8 @@
-src/database/NomeRG1K.txt
-src/database/NomeRG1M.txt
-src/database/NomeRG10.txt
-src/database/NomeRG10K.txt
-src/database/NomeRG50.txt
-src/database/NomeRG100.txt
-src/database/NomeRG100M.txt
+database/NomeRG1K.txt
+database/NomeRG1M.txt
+database/NomeRG10K.txt
+database/NomeRG50.txt
+database/NomeRG100.txt
+database/NomeRG100M.txt
+src/_main
+src/_main.exe

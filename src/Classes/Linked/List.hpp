@@ -1,8 +1,9 @@
+#pragma once
 #include "ListManager.hpp"
 
 using DataStructure::Query::Linked::ListManager;
 
-namespace DatauStructure::Query::Linked
+namespace DataStructure::Query::Linked
 {
     template <class T>
     class List
