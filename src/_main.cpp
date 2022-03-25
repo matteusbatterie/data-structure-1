@@ -6,14 +6,18 @@
 #include "./Classes/Sequential/List.hpp"
 #include "./Classes/Entities/Person.hpp"
 #include "./Constants/FilesNames.hpp"
+#include "./Classes/Standard/Array.hpp"
 
 using std::cout;
 using namespace DataStructure::Query;
-using namespace Constants::PeopleFilesNames;
+using namespace Constants;
 using namespace FileConfiguration;
 using namespace Entities;
+using namespace Standard;
 
 void firstPresentation();
+void secondpresentation();
+
 void terminateApplication();
 void pause();
 
@@ -27,10 +31,14 @@ int main()
 
 void firstPresentation()
 {
-    auto [fileName, fileType] = NAME_AND_ID_10;
+    auto [fileName, fileType] = PeopleFilesNames::NAME_AND_ID_10;
     Sequential::List<Person> sequentialList = FileManager().readAsListSequential(fileName + "." + fileType);
 
     cout << sequentialList << "\n";
+}
+void secondPresentation()
+{
+
 }
 
 void terminateApplication()

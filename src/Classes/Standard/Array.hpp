@@ -17,6 +17,18 @@ namespace Standard::Query
         typedef const T* const_iterator;
 
     public:
+        Array(const Array<T>& copy) {
+            // to be implemented
+        }
+        Array(T* array, unsigned long size) {
+            _array = new T[size];
+            for (unsigned long index = 0;
+                index < size;
+                index++)
+            {
+                _array[index] = array[index];
+            }
+        }
         Array() {
             this->_array = new T[0];
             this->_size = 0;
@@ -46,7 +58,7 @@ namespace Standard::Query
     {
         T* newArray = new T[++_size];
         for (unsigned int index = 0;
-            index < _size;
+            index < _size - 1;
             index++)
         {
             _array[index] = newArray[index];

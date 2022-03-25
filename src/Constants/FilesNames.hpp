@@ -3,14 +3,14 @@
 
 using std::string;
 
-struct File
-{
-    const string name;
-    const string type;
-};
-
 namespace Constants
 {
+    struct File
+    {
+        const string name;
+        const string type;
+    };
+
     namespace PeopleFilesNames
     {
         const File NAME_AND_ID_10 = { "NomeRG10", "txt" };
