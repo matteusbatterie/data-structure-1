@@ -39,7 +39,7 @@ namespace FileConfiguration::Util
 
         return buffer.str();
     }
-    
+
     Array<string> FileReader::readAsArray(const string fileName) {
         Array<string> array;
         ifstream file;
@@ -57,7 +57,7 @@ namespace FileConfiguration::Util
 
         return array;
     }
-    
+
     Sequential::List<Person> FileReader::readAsListSequential(const string fileName)
     {
         Sequential::List<Person> list = Sequential::List<Person>();
@@ -92,6 +92,34 @@ namespace FileConfiguration::Util
     }
 
     Linked::List<Person> FileReader::readAsListLinked(const string fileName) {
-        // to be implemented
+        Linked::List<Person> list = Linked::List<Person>();
+        ifstream file;
+        file.open(PATH + fileName);
+
+        if (!file.is_open()) {
+            cout << "Unable to open file.\n";
+            return list;
+        }
+
+        while (file.good() && !file.eof())
+        {
+            string personName;
+            string personIdStr;
+
+            getline(file, personName, ',');
+            getline(file, personIdStr);
+
+            if (file.eof())
+                break;
+
+            Person person = Person{
+                stoul(personIdStr, nullptr, 0),
+                personName
+            };
+            list.append(person);
+        }
+
+        file.close();
+        return list;
     }
 }

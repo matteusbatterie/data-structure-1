@@ -16,14 +16,17 @@ using namespace Entities;
 using namespace Standard;
 
 void firstPresentation();
-void secondpresentation();
+void secondPresentation();
 
 void terminateApplication();
 void pause();
 
 int main()
 {
-    firstPresentation();
+    int valor = 10;
+    int* ponteiro = &valor;
+
+    secondPresentation();
 
     terminateApplication();
     return 0;
@@ -34,16 +37,19 @@ void firstPresentation()
     auto [fileName, fileType] = PeopleFilesNames::NAME_AND_ID_10;
     Sequential::List<Person> sequentialList = FileManager().readAsListSequential(fileName + "." + fileType);
 
-    cout << sequentialList << "\n";
+    cout << sequentialList << '\n';
 }
 void secondPresentation()
 {
+    auto [fileName, fileType] = PeopleFilesNames::NAME_AND_ID_10;
+    Linked::List<Person> linkedList = FileManager().readAsListLinked(fileName + "." + fileType);
 
+    cout << linkedList << '\n';
 }
 
 void terminateApplication()
 {
-    cout << "\n\n\n" << "Application terminated.\n";
+    cout << "\n\n" << "Application terminated.\n";
     pause();
 }
 

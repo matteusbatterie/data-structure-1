@@ -41,13 +41,11 @@ namespace Standard::Query
 
         void insert(T newItem);
 
-        // Range based for loop functions
-        iterator begin() { return &_array[0]; }
-        const_iterator begin() const { return &_array[0]; }
-        iterator end() { return &_array[_size]; }
-        const_iterator end() const { return &_array[_size]; }
+        T& begin() { return _array; }
+        T& begin() const { return _array; }
+        T& end() { return _array + _size; }
+        T& end() const { return _array + _size; }
 
-        // Operators overload methods
         template <class E>
         friend ostream& operator<<(ostream& os, const Array<T>& array);
         Array<T>& operator=(const Array<T>& copy);
@@ -69,7 +67,6 @@ namespace Standard::Query
         _array = newArray;
     }
 
-    // Operators overload
     template <class T>
     ostream& operator<<(ostream& os, const Array<T>& array)
     {

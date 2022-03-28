@@ -19,7 +19,7 @@ namespace DataStructure::Query::Sequential
         List(const List<T>& copy) {
             _first = new T[copy.size()];
             std::copy(copy._first, copy._first + copy.size(), _first);
-            _size = copy._size;
+            _size = copy.size();
         }
         List() {
             this->_first = new T[0];
@@ -31,6 +31,7 @@ namespace DataStructure::Query::Sequential
 
         unsigned long size() const { return this->_size; }
 
+
         void append(T data);
         void insert(T data, int position);
 
@@ -40,10 +41,10 @@ namespace DataStructure::Query::Sequential
         void find(T data);
         void findAt(int position);
 
-        // Operators overload methods
+
         template <class E>
-        friend ostream& operator<<(ostream&, const List<E>& list);
-        List<T>& operator=(const List<T>& copy);
+        friend ostream& operator<<(ostream& os, const List<E>& list);
+        List<T>& operator=(const List<T>& source);
     };
 
     template <class T>
@@ -63,11 +64,10 @@ namespace DataStructure::Query::Sequential
         _first = newList;
     }
 
-    template<class T>
+    template <class T>
     ostream& operator<<(ostream& os, const List<T>& list)
     {
-        if (list.size() < 1)
-            return os << "Empty list.";
+        if (list.size() < 1) return os << "Empty list.\n";
 
         os << "[" << list._first[0] << "]";
 
@@ -75,23 +75,21 @@ namespace DataStructure::Query::Sequential
         for (unsigned int counter = 1;
             counter < list.size();
             counter++)
-        {
-            os  << "\n[" << iterator[counter] << "]";
-        }
+            os << "\n[" << iterator[counter] << "]";
 
         return os;
     }
 
-    template<class T>
-    List<T>& List<T>::operator=(const List<T>& copy)
+    template <class T>
+    List<T>& List<T>::operator=(const List<T>& source)
     {
-        if (this == &copy) return *this;
+        if (this == &source) return *this;
 
         delete[] _first;
 
-        this->_size = copy.size();
+        this->_size = source.size();
         this->_first = new T[_size];
-        std::copy(copy._first, copy._first + copy.size(), _first);
+        std::copy(source._first, source._first + source.size(), _first);
 
         return *this;
     }
