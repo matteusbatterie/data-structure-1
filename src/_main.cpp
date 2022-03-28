@@ -23,9 +23,6 @@ void pause();
 
 int main()
 {
-    int valor = 10;
-    int* ponteiro = &valor;
-
     secondPresentation();
 
     terminateApplication();
