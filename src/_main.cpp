@@ -1,7 +1,6 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <conio.h>
 #include "./Classes/FileManaging/FileManager.hpp"
 #include "./Classes/Sequential/List.hpp"
 #include "./Classes/Entities/Person.hpp"
@@ -46,12 +45,13 @@ void secondPresentation()
 
 void terminateApplication()
 {
-    cout << "\n\n" << "Application terminated.\n";
+    cout << "\n\n"
+         << "Application terminated.\n";
     pause();
 }
 
 void pause()
 {
     cout << "Press any key to continue...\n";
-    while (!kbhit()) {}
+    getchar();
 }

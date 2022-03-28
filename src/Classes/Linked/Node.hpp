@@ -34,7 +34,8 @@ namespace DataStructure::Query::Linked
             this->_next = next;
         }
         ~Node() {
-            delete _data;
+            if(_data) 
+                delete _data;
         }
 
         T& data() const { return *(this->_data); }
@@ -66,12 +67,9 @@ namespace DataStructure::Query::Linked
     {
         if (this == &source) return *this;
 
-        delete _data;
-
         if (&source == nullptr) {
             _data = nullptr;
             _previous = _next = nullptr;
-            delete this;
             return *this;
         };
 

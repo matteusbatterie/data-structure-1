@@ -23,8 +23,10 @@ namespace DataStructure::Query::Linked
             this->_size = 0;
         }
         ~List() {
-            for (Node<T> node : *this)
-                delete &node;
+            for (Node<T>* iterator = _first;
+                iterator != _last;
+                iterator = &(iterator->next()))
+                delete iterator;
         }
 
         unsigned long size() const { return this->_size; }
