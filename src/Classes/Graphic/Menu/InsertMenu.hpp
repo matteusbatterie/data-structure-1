@@ -17,30 +17,32 @@ namespace Graphic::Menu
                     KeyValuePair<int, string>(0, "Quit")
             };
         }
-        ~InsertMenu() {
-            delete[] this->_options;
-        }
+        ~InsertMenu() { }
 
         void init() {
-            Menu::init();
-
-            fflush(stdin);
-            switch (getchar())
+            while (_selectedOption.key() != 0)
             {
-            case '1':
-                break;
-            case '2':
-                break;
-            case '3':
-                break;
-            case '0':
-                _selectedOption = KeyValuePair<int, string>(_options[4]);
-                return;
-                break;
-            default:
-                _selectedOption = KeyValuePair<int, string>();
-                std::cout << "Invalid option.\n";
-                break;
+                Menu::init();
+                fflush(stdin);
+                switch (getchar())
+                {
+                case '1':
+                    _selectedOption = KeyValuePair<int, string>(_options[0]);
+                    break;
+                case '2':
+                    _selectedOption = KeyValuePair<int, string>(_options[1]);
+                    break;
+                case '3':
+                    _selectedOption = KeyValuePair<int, string>(_options[2]);
+                    break;
+                case '0':
+                    _selectedOption = KeyValuePair<int, string>(_options[3]);
+                    return;
+                default:
+                    _selectedOption = KeyValuePair<int, string>();
+                    std::cout << "Invalid option.\n";
+                    break;
+                }
             }
         }
     };

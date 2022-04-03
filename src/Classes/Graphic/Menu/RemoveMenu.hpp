@@ -17,7 +17,7 @@ namespace Graphic::Menu
                     KeyValuePair<int, string>(0, "Quit")
             };
         }
-        ~RemoveMenu() {
+        ~RemoveMenu() override {
             delete[] this->_options;
         }
 

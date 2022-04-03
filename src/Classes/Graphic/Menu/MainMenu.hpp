@@ -30,46 +30,47 @@ namespace Graphic::Menu
                     KeyValuePair<int, string>(0, "Quit")
             };
         }
-        ~MainMenu() {
-            delete[] this->_options;
-        }
+        virtual ~MainMenu() { }
 
         void init() {
-            Menu::init();
-
-            switch (getchar())
+            while (_selectedOption.key() != 0)
             {
-            case '1':
-                _selectedOption = KeyValuePair<int, string>(_options[0]);
-                _insertMenu = new InsertMenu();
-                _insertMenu->init();
-                delete _insertMenu;
-                break;
-            case '2':
-                _selectedOption = KeyValuePair<int, string>(_options[1]);
-                _removeMenu = new RemoveMenu();
-                _removeMenu->init();
-                delete _removeMenu;
-                break;
-            case '3':
-                _selectedOption = KeyValuePair<int, string>(_options[2]);
-                break;
-            case '4':
-                _selectedOption = KeyValuePair<int, string>(_options[3]);
-                break;
-            case '5':
-                _selectedOption = KeyValuePair<int, string>(_options[4]);
-                break;
-            case '6':
-                _selectedOption = KeyValuePair<int, string>(_options[5]);
-                break;
-            case '0':
-                _selectedOption = KeyValuePair<int, string>(_options[6]);
-                break;
-            default:
-                _selectedOption = KeyValuePair<int, string>();
-                std::cout << "Invalid option.\n";
-                break;
+                Menu::init();
+                fflush(stdin);
+                switch (getchar())
+                {
+                case '1':
+                    _selectedOption = KeyValuePair<int, string>(_options[0]);
+                    _insertMenu = new InsertMenu();
+                    _insertMenu->init();
+                    delete _insertMenu;
+                    break;
+                case '2':
+                    _selectedOption = KeyValuePair<int, string>(_options[1]);
+                    _removeMenu = new RemoveMenu();
+                    _removeMenu->init();
+                    delete _removeMenu;
+                    break;
+                case '3':
+                    _selectedOption = KeyValuePair<int, string>(_options[2]);
+                    break;
+                case '4':
+                    _selectedOption = KeyValuePair<int, string>(_options[3]);
+                    break;
+                case '5':
+                    _selectedOption = KeyValuePair<int, string>(_options[4]);
+                    break;
+                case '6':
+                    _selectedOption = KeyValuePair<int, string>(_options[5]);
+                    break;
+                case '0':
+                    _selectedOption = KeyValuePair<int, string>(_options[6]);
+                    break;
+                default:
+                    _selectedOption = KeyValuePair<int, string>();
+                    std::cout << "Invalid option.\n";
+                    break;
+                }
             }
         }
     };

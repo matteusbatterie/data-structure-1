@@ -18,11 +18,11 @@ namespace Graphic::Menu
     public:
         Menu() : UI() {
             this->_options = nullptr;
-            this->_selectedOption = KeyValuePair<int, string>();
+            this->_selectedOption = KeyValuePair<int, string>(-1, "");
             this->_numberOfOptions = 0;
         }
-        ~Menu() {
-            delete[] this->_options;
+        virtual ~Menu() {
+            if (this->_options) delete[] this->_options;
         }
 
         virtual void init() {

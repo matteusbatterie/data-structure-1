@@ -5,11 +5,11 @@ namespace Standard
     template <class TKey, class TValue>
     class KeyValuePair
     {
-        private:
+    private:
         TKey* _key;
         TValue* _value;
 
-        public:
+    public:
         KeyValuePair(TKey* key = nullptr, TValue* value = nullptr) {
             this->_key = key;
             this->_value = value;
@@ -19,8 +19,8 @@ namespace Standard
             this->_value = new TValue(value);
         }
         ~KeyValuePair() {
-            delete this->_key;
-            delete this->_value;
+            if (this->_key) delete this->_key;
+            if (this->_value) delete this->_value;
         }
 
         TKey& key() const { return *(this->_key); }
