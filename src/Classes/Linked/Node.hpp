@@ -6,12 +6,14 @@ namespace DataStructure::Query::Linked
     class Node
     {
     private:
+        int _position;
         T* _data;
         Node<T>* _previous;
         Node<T>* _next;
 
     public:
-        Node(const T& data) {
+        Node(const T& data, const int position = -1) {
+            this->_position = position;
             this->data(data);
             this->_previous = nullptr;
             this->_next = nullptr;
@@ -37,6 +39,9 @@ namespace DataStructure::Query::Linked
             if(_data) 
                 delete _data;
         }
+
+        int position() const { return _position; }
+        void position(const int position) { _position = position; }
 
         T& data() const { return *(this->_data); }
         void data(const T& data) { this->_data = new T(data); }
