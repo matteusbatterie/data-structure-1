@@ -66,7 +66,6 @@ namespace Management
             mainMenu();
         }
         void mainMenu() {
-
             while (_menuManager->mainMenuOption() != "0")
             {
                 std::cout << "1 - Insert\n";

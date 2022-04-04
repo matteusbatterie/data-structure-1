@@ -138,9 +138,10 @@ namespace DataStructure::Query::Sequential
     }
 
     template <class T>
-    T& List<T>::find(const T) const
+    T& List<T>::find(const T data) const
     {
-        
+        for (int index = 0; index < _size; index++)
+            if (_first[index] == data) return _first[index];
     }
 
     template <class T>

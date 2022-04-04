@@ -40,7 +40,7 @@ namespace DataStructure::Query::Linked
         void pop();
         void remove(int position);
 
-        void find(T data);
+        T& find(const T data);
         void findAt(int position);
 
 
@@ -117,7 +117,7 @@ namespace DataStructure::Query::Linked
         }
 
         _last = &_last->previous();
-        delete &_last->next();
+        delete& _last->next();
     }
 
     template <class T>
@@ -144,6 +144,12 @@ namespace DataStructure::Query::Linked
         delete iterator;
     }
 
+    template <class T>
+    T& List<T>::find(const T data)
+    {
+        for (T& item : *this)
+            if (item == data) return item;
+    }
 
     template <class T>
     ostream& operator<<(ostream& os, const List<T>& list)
