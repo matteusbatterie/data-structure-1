@@ -21,8 +21,9 @@ namespace Management
         string _mainMenuOption;
         string _insertMenuOption;
         string _removeMenuOption;
+        string _loadMenuOption;
 
-        std::string _selectedOption;
+        string _selectedOption;
 
     public:
         MenuManager() {
@@ -30,10 +31,10 @@ namespace Management
             this->_insertMenu = nullptr;
             this->_removeMenu = nullptr;
 
-            _listOption = "";
-            _mainMenuOption = "";
-            _insertMenuOption = "";
-            _removeMenuOption = "";
+            this->_listOption = "";
+            this->_mainMenuOption = "";
+            this->_insertMenuOption = "";
+            this->_removeMenuOption = "";
         }
         ~MenuManager() {
             if (_mainMenu) delete _mainMenu;

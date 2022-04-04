@@ -1,10 +1,10 @@
 #pragma once
 #include <iostream>
-#include "./Classes/FileManaging/FileManager.hpp"
+#include "./Classes/Management/File/FileManager.hpp"
 #include "./Classes/Constants/FilesNames.hpp"
 #include "./Classes/Management/Application.hpp"
 
-using namespace FileConfiguration;
+using namespace Management::File;
 using namespace Constants;
 using namespace Management;
 

@@ -75,7 +75,16 @@
     "xmemory": "cpp",
     "xstddef": "cpp",
     "xtr1common": "cpp",
-    "xutility": "cpp"
+    "xutility": "cpp",
+    "csetjmp": "cpp",
+    "codecvt": "cpp",
+    "condition_variable": "cpp",
+    "cuchar": "cpp",
+    "random": "cpp",
+    "future": "cpp",
+    "mutex": "cpp",
+    "scoped_allocator": "cpp",
+    "shared_mutex": "cpp"
   },
   "C_Cpp_Runner.debuggerPath": "gdb",
   "C_Cpp_Runner.cStandard": "",

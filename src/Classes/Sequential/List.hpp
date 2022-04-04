@@ -11,8 +11,9 @@ namespace DataStructure::Query::Sequential
     template <class T>
     class List
     {
-    private:
+    public:
         T* _first;
+    private:
         unsigned long _size;
 
     public:
@@ -41,6 +42,11 @@ namespace DataStructure::Query::Sequential
         T& find(const T data) const;
         void findAt(int position) const;
 
+        // temporary solution
+        void print() {
+            for(int index = 0; index < _size; index++)
+                std::cout << _first[index] << '\n';
+        }
 
         template <class E>
         friend ostream& operator<<(ostream& os, const List<E>& list);
@@ -74,20 +80,13 @@ namespace DataStructure::Query::Sequential
 
         T* newList = new T[++_size];
 
-        for (int index = 0;
-            index < position;
-            index++)
-        {
+        for (int index = 0; index < position; index++)
             newList[index] = _first[index];
-        }
+
         newList[position] = data;
 
-        for (int index = position + 1;
-            index < _size - 1;
-            index++)
-        {
-            newList[index] = _first[index];
-        }
+        for (int index2 = position + 1; index2 < _size; index2++)
+            newList[index2] = _first[index2 - 1];
 
         delete[] _first;
         _first = newList;
@@ -127,11 +126,11 @@ namespace DataStructure::Query::Sequential
         }
 
         T* newList = new T[--_size];
-        for (int index = 0; index < position;index++)
+        for (int index = 0; index < position; index++)
             newList[index] = _first[index];
 
-        for (int index = position + 1; index < _size; index++)
-            newList[index] = _first[index];
+        for (int index = position + 1; index < _size + 1; index++)
+            newList[index - 1] = _first[index];
 
         delete[] _first;
         _first = newList;

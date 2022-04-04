@@ -1,6 +1,8 @@
 #pragma once
 #include "./Node.hpp"
 
+using std::ostream;
+
 namespace DataStructure::Query::Linked
 {
     template <class T>
@@ -13,9 +15,11 @@ namespace DataStructure::Query::Linked
 
     public:
         List(const List<T>& copy) {
-            this->_first = new Node<T>(copy.first());
-            this->_last = new Node<T>(copy.last());
-            this->_size = copy.size();
+            this->_first = nullptr;
+            this->_last = nullptr;
+            this->_size = 0;
+            for(T item : copy)
+                this->append(item);
         }
         List() {
             this->_first = nullptr;
@@ -23,9 +27,7 @@ namespace DataStructure::Query::Linked
             this->_size = 0;
         }
         ~List() {
-            for (Node<T>* iterator = _first;
-                iterator != _last;
-                iterator = &(iterator->next()))
+            for (Node<T>* iterator = _first; iterator != _last; iterator = &(iterator->next()))
                 delete iterator;
         }
 
@@ -43,6 +45,11 @@ namespace DataStructure::Query::Linked
         T& find(const T data);
         void findAt(int position);
 
+
+        void print() {
+            for (Node<T>* iterator = _first; iterator != _last; iterator = &(iterator->next()))
+                std::cout << iterator->data() << '\n';
+        }
 
         Node<T>& begin() const { return *_first; }
         Node<T>& end() const { return _last->next(); }
@@ -92,20 +99,20 @@ namespace DataStructure::Query::Linked
             Node<T>* newNode = new Node<T>(data);
             newNode->next(*_first);
             _first->previous(*newNode);
+            _first = newNode;
             return;
         }
 
         Node<T>* iterator = _first;
-        for (int counter = 0; counter < position; counter++)
-            iterator++;
+        for (int counter = 0; counter < position - 1; counter++)
+            iterator = &iterator->next();
 
         Node<T>* newNode = new Node<T>(data);
-        Node<T>* next = &iterator->next();
         Node<T>* previous = &iterator->previous();
-        newNode->next(*next);
+        newNode->next(*iterator);
         newNode->previous(*previous);
-        next->previous(*newNode);
         previous->next(*newNode);
+        iterator->previous(*newNode);
     }
 
     template <class T>
@@ -115,9 +122,12 @@ namespace DataStructure::Query::Linked
             std::cout << "There are no elements to be removed.\n";
             return;
         }
+        
+        _size--;
 
+        Node<T>* oldLast = _last;
         _last = &_last->previous();
-        delete& _last->next();
+        delete oldLast;
     }
 
     template <class T>
@@ -133,9 +143,22 @@ namespace DataStructure::Query::Linked
             return;
         }
 
+        if(position == _size) {
+            this->pop();
+            return;
+        }
+
+        _size--;
+        if(position == 0) {
+            Node<T>* oldFirst = _first;
+            _first = &_first->next();
+            delete oldFirst;
+            return;
+        }
+
         Node<T>* iterator = _first;
         for (int counter = 0; counter < position; counter++)
-            iterator++;
+            iterator = &iterator->next();
 
         Node<T>* previous = &iterator->previous();
         Node<T>* next = &iterator->next();
