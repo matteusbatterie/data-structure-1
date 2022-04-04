@@ -25,6 +25,8 @@ namespace Graphic::Menu
             if (this->_options) delete[] this->_options;
         }
 
+        string command() const { return _selectedOption.value(); }
+
         virtual void init() {
             clear();
             if (_numberOfOptions < 1) {

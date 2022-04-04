@@ -38,8 +38,8 @@ namespace DataStructure::Query::Sequential
         void pop();
         void remove(int position);
 
-        void find(T data);
-        void findAt(int position);
+        T& find(const T data) const;
+        void findAt(int position) const;
 
 
         template <class E>
@@ -62,6 +62,85 @@ namespace DataStructure::Query::Sequential
 
         delete[] _first;
         _first = newList;
+    }
+
+    template <class T>
+    void List<T>::insert(T data, int position)
+    {
+        if (position > _size || position < 0) {
+            std::cout << "Invalid range for insertion.\n";
+            return;
+        }
+
+        T* newList = new T[++_size];
+
+        for (int index = 0;
+            index < position;
+            index++)
+        {
+            newList[index] = _first[index];
+        }
+        newList[position] = data;
+
+        for (int index = position + 1;
+            index < _size - 1;
+            index++)
+        {
+            newList[index] = _first[index];
+        }
+
+        delete[] _first;
+        _first = newList;
+    }
+
+    template <class T>
+    void List<T>::pop()
+    {
+        if (_size == 0) {
+            std::cout << "There are no elements to be removed.\n";
+            return;
+        }
+
+        T* newList = new T[--_size];
+        for (int index = 0;
+            index < _size;
+            index++)
+        {
+            newList[index] = _first[index];
+        }
+
+        delete[] _first;
+        _first = newList;
+    }
+
+    template <class T>
+    void List<T>::remove(int position)
+    {
+        if (position > _size || position < 0) {
+            std::cout << "Invalid range for remotion.\n";
+            return;
+        }
+
+        if (_size == 0) {
+            std::cout << "There are no elements to be removed.\n";
+            return;
+        }
+
+        T* newList = new T[--_size];
+        for (int index = 0; index < position;index++)
+            newList[index] = _first[index];
+
+        for (int index = position + 1; index < _size; index++)
+            newList[index] = _first[index];
+
+        delete[] _first;
+        _first = newList;
+    }
+
+    template <class T>
+    T& List<T>::find(const T) const
+    {
+        
     }
 
     template <class T>

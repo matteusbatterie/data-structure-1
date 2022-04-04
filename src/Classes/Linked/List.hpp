@@ -68,6 +68,82 @@ namespace DataStructure::Query::Linked
         _last = newNode;
     }
 
+    template <class T>
+    void List<T>::insert(T data, int position)
+    {
+        if (position > _size || position < 0) {
+            std::cout << "Invalid range for insertion.\n";
+            return;
+        }
+
+        if (position == _size) {
+            append(data);
+            return;
+        }
+
+        _size++;
+
+        if (!_first) {
+            _first = _last = new Node<T>(data);
+            return;
+        }
+
+        if (position == 0) {
+            Node<T>* newNode = new Node<T>(data);
+            newNode->next(*_first);
+            _first->previous(*newNode);
+            return;
+        }
+
+        Node<T>* iterator = _first;
+        for (int counter = 0; counter < position; counter++)
+            iterator++;
+
+        Node<T>* newNode = new Node<T>(data);
+        Node<T>* next = &iterator->next();
+        Node<T>* previous = &iterator->previous();
+        newNode->next(*next);
+        newNode->previous(*previous);
+        next->previous(*newNode);
+        previous->next(*newNode);
+    }
+
+    template <class T>
+    void List<T>::pop()
+    {
+        if (_size == 0) {
+            std::cout << "There are no elements to be removed.\n";
+            return;
+        }
+
+        _last = &_last->previous();
+        delete &_last->next();
+    }
+
+    template <class T>
+    void List<T>::remove(int position)
+    {
+        if (position > _size || position < 0) {
+            std::cout << "Invalid range for remotion.\n";
+            return;
+        }
+
+        if (_size == 0) {
+            std::cout << "There are no elements to be removed.\n";
+            return;
+        }
+
+        Node<T>* iterator = _first;
+        for (int counter = 0; counter < position; counter++)
+            iterator++;
+
+        Node<T>* previous = &iterator->previous();
+        Node<T>* next = &iterator->next();
+        next->previous(*previous);
+        previous->next(*next);
+        delete iterator;
+    }
+
 
     template <class T>
     ostream& operator<<(ostream& os, const List<T>& list)

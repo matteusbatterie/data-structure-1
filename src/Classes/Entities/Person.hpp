@@ -38,12 +38,15 @@ namespace Entities
             return os << output;
         }
 
-        Person& operator=(const Person& copy)
-        {
+        Person& operator=(const Person& copy) {
             this->_id = copy._id;
             this->_name = copy._name;
 
             return *this;
+        }
+
+        bool operator==(const Person& comparison) {
+            return this->id() == comparison.id();
         }
     };
 }

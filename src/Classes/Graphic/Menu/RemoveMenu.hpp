@@ -22,24 +22,27 @@ namespace Graphic::Menu
         }
 
         void init() {
-            Menu::init();
-
-            switch (getchar())
+            while (_selectedOption.key() != 0)
             {
-            case '1':
-                break;
-            case '2':
-                break;
-            case '3':
-                break;
-            case '0':
-                _selectedOption = KeyValuePair<int, string>(_options[4]);
-                return;
-                break;
-            default:
-                _selectedOption = KeyValuePair<int, string>();
-                std::cout << "Invalid option.\n";
-                break;
+                Menu::init();
+                fflush(stdin);
+                switch (getchar())
+                {
+                case '1':
+                    break;
+                case '2':
+                    break;
+                case '3':
+                    break;
+                case '0':
+                    _selectedOption = KeyValuePair<int, string>(_options[4]);
+                    return;
+                    break;
+                default:
+                    _selectedOption = KeyValuePair<int, string>();
+                    std::cout << "Invalid option.\n";
+                    break;
+                }
             }
         }
     };
