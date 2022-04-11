@@ -12,9 +12,9 @@ namespace Graphic::Menu
             this->_options = new KeyValuePair<int, string>[_numberOfOptions]
             {
                 KeyValuePair<int, string>(1, "Insert at begin"),
-                    KeyValuePair<int, string>(2, "Insert at end"),
-                    KeyValuePair<int, string>(3, "Insert at position"),
-                    KeyValuePair<int, string>(0, "Quit")
+                KeyValuePair<int, string>(2, "Insert at end"),
+                KeyValuePair<int, string>(3, "Insert at position"),
+                KeyValuePair<int, string>(0, "Quit")
             };
         }
         ~InsertMenu() { }
@@ -23,20 +23,20 @@ namespace Graphic::Menu
             while (_selectedOption.key() != 0)
             {
                 Menu::init();
-                fflush(stdin);
+                clearBuffer();
                 switch (getchar())
                 {
                 case '1':
-                    _selectedOption = KeyValuePair<int, string>(_options[0]);
+                    _selectedOption = _options[0];
                     break;
                 case '2':
-                    _selectedOption = KeyValuePair<int, string>(_options[1]);
+                    _selectedOption = _options[1];
                     break;
                 case '3':
-                    _selectedOption = KeyValuePair<int, string>(_options[2]);
+                    _selectedOption = _options[2];
                     break;
                 case '0':
-                    _selectedOption = KeyValuePair<int, string>(_options[3]);
+                    _selectedOption = _options[3];
                     return;
                 default:
                     _selectedOption = KeyValuePair<int, string>();

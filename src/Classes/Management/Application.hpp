@@ -3,7 +3,9 @@
 #include "../Management/ListManager.hpp"
 #include "../Management/MenuManager.hpp"
 #include "../Constants/FilesNames.hpp"
+#include "../Constants/ApplicationCommands.hpp"
 
+using namespace Constants;
 
 namespace Management
 {
@@ -45,34 +47,39 @@ namespace Management
         void init() {
             _menuManager = new MenuManager();
             _listManager = new ListManager();
-
-
-            while (_menuManager->listOption() != "1"
-                && _menuManager->listOption() != "2")
-            {    
-                std::cout << "1 - Sequential List\n";
-                std::cout << "2 - Linked List\n";
-                std::cout << ">> ";
-
-                char option = getchar();
-                clearBuffer();
-                switch (option)
-                {
-                case '1':
-                    _menuManager->listOption("1");
-                    break;
-
-                case '2':
-                    _menuManager->listOption("2");
-                    break;
-
-                default:
-                    std::cout << "Invalid option.\n";
-                    break;
-                }
+            
+            std::string command = _menuManager->listen();
+            while (command != ApplicationCommand::QUIT_APPLICATION)
+            {
+                command = _menuManage->listen();
             }
 
-            mainMenu();
+            // while (_menuManager->listOption() != "1"
+            //     && _menuManager->listOption() != "2")
+            // {    
+            //     std::cout << "1 - Sequential List\n";
+            //     std::cout << "2 - Linked List\n";
+            //     std::cout << ">> ";
+
+            //     char option = getchar();
+            //     clearBuffer();
+            //     switch (option)
+            //     {
+            //     case '1':
+            //         _menuManager->listOption("1");
+            //         break;
+
+            //     case '2':
+            //         _menuManager->listOption("2");
+            //         break;
+
+            //     default:
+            //         std::cout << "Invalid option.\n";
+            //         break;
+            //     }
+            // }
+
+            // mainMenu();
         }
         void mainMenu() {
             while (_menuManager->mainMenuOption() != "0")
@@ -346,7 +353,7 @@ namespace Management
             using namespace Constants::PeopleFilesNames;
 
             _fileManager = new FileManager();
-            string loadedFile = "";
+            std::string loadedFile = "";
             while(loadedFile == "")
             {
                 std::cout << "Pick a preset file:\n";
@@ -406,10 +413,4 @@ namespace Management
     };
 
     Application* Application::_instance = nullptr;
-
-    void Application::clearBuffer()
-    {
-        int c;
-        while ((c = getchar()) != '\n' && c != EOF) { }
-    }
 }
