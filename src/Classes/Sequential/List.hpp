@@ -44,7 +44,7 @@ namespace DataStructure::Query::Sequential
 
         // temporary solution
         void print() {
-            for(int index = 0; index < _size; index++)
+            for (int index = 0; index < _size; index++)
                 std::cout << _first[index] << '\n';
         }
 
@@ -56,91 +56,166 @@ namespace DataStructure::Query::Sequential
     template <class T>
     void List<T>::append(T data)
     {
+        int a = 0, c = 0;
+
+        a++;
         T* newList = new T[++_size];
 
-        for (unsigned int index = 0;
-            index < _size - 1;
-            index++)
+        for (unsigned int index = 0; index < _size - 1; index++)
         {
+            c++;
+            a++;
             newList[index] = _first[index];
         }
+        c++;
         newList[_size - 1] = data;
+        a++;
 
         delete[] _first;
         _first = newList;
+        a++;
+
+        std::cout << "\nAPPEND operation log:\n";
+        std::cout << "Count of assignments: " << a << '\n';
+        std::cout << "Count of comparisons: " << c << '\n';
     }
 
     template <class T>
     void List<T>::insert(T data, int position)
     {
+        int a = 0, c = 0;
+
         if (position > _size || position < 0) {
             std::cout << "Invalid range for insertion.\n";
             return;
         }
 
         T* newList = new T[++_size];
+        c++;
+        a++;
 
         for (int index = 0; index < position; index++)
+        {
+            c++;
+            a++;
             newList[index] = _first[index];
+        }
+        c++;
 
         newList[position] = data;
+        a++;
 
         for (int index2 = position + 1; index2 < _size; index2++)
+        {
+            c++;
+            a++;
             newList[index2] = _first[index2 - 1];
+        }
+        c++;
 
         delete[] _first;
         _first = newList;
+        a++;
+
+        std::cout << "\nINSERT operation log:\n";
+        std::cout << "Count of assignments: " << a << '\n';
+        std::cout << "Count of comparisons: " << c << '\n';
     }
 
     template <class T>
     void List<T>::pop()
     {
+        int a = 0, c = 0;
+
+        c++;
         if (_size == 0) {
             std::cout << "There are no elements to be removed.\n";
             return;
         }
 
+        a++;
         T* newList = new T[--_size];
-        for (int index = 0;
-            index < _size;
-            index++)
+        for (int index = 0; index < _size; index++)
         {
+            c++;
             newList[index] = _first[index];
+            a++;
         }
+        c++;
 
         delete[] _first;
         _first = newList;
+        a++;
+
+        std::cout << "\nPOP operation log:\n";
+        std::cout << "Count of assignments: " << a << '\n';
+        std::cout << "Count of comparisons: " << c << '\n';
     }
 
     template <class T>
     void List<T>::remove(int position)
     {
+        int a = 0, c = 0;
+
+        c++;
         if (position > _size || position < 0) {
             std::cout << "Invalid range for remotion.\n";
             return;
         }
 
+        c++;
         if (_size == 0) {
             std::cout << "There are no elements to be removed.\n";
             return;
         }
 
+        a++;
         T* newList = new T[--_size];
         for (int index = 0; index < position; index++)
+        {
+            c++;
+            a++;
             newList[index] = _first[index];
+        }
+        c++;
 
         for (int index = position + 1; index < _size + 1; index++)
+        {
+            c++;
+            a++;
             newList[index - 1] = _first[index];
+        }
+        c++;
 
         delete[] _first;
         _first = newList;
+        a++;
+
+        std::cout << "\nREMOVE operation log:\n";
+        std::cout << "Count of assignments: " << a << '\n';
+        std::cout << "Count of comparisons: " << c << '\n';
     }
 
     template <class T>
     T& List<T>::find(const T data) const
     {
+        int a = 0, c = 0;
         for (int index = 0; index < _size; index++)
-            if (_first[index] == data) return _first[index];
+        {
+            c++;
+            if (_first[index] == data) {
+                std::cout << "\nFIND operation log:\n";
+                std::cout << "Count of assignments: " << a << '\n';
+                std::cout << "Count of comparisons: " << c << '\n';
+                return _first[index];
+            }
+            c++;
+        }
+        c++;
+
+        std::cout << "\nFIND operation log:\n";
+        std::cout << "Count of assignments: " << a << '\n';
+        std::cout << "Count of comparisons: " << c << '\n';
     }
 
     template <class T>

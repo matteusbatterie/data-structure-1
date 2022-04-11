@@ -18,7 +18,7 @@ namespace DataStructure::Query::Linked
             this->_first = nullptr;
             this->_last = nullptr;
             this->_size = 0;
-            for(T item : copy)
+            for (T item : copy)
                 this->append(item);
         }
         List() {
@@ -62,10 +62,18 @@ namespace DataStructure::Query::Linked
     template <class T>
     void List<T>::append(T data)
     {
+        int a = 0, c = 0;
+
+        a++;
         _size++;
 
+        c++;
         if (!_first) {
+            a++;
             _first = _last = new Node<T>(data);
+            std::cout << "\nAPPEND operation log:\n";
+            std::cout << "Count of assignments: " << a << '\n';
+            std::cout << "Count of comparisons: " << c << '\n';
             return;
         }
 
@@ -73,39 +81,66 @@ namespace DataStructure::Query::Linked
         newNode->previous(*_last);
         _last->next(*newNode);
         _last = newNode;
+        a += 4;
+
+        std::cout << "\nAPPEND operation log:\n";
+        std::cout << "Count of assignments: " << a << '\n';
+        std::cout << "Count of comparisons: " << c << '\n';
     }
 
     template <class T>
     void List<T>::insert(T data, int position)
     {
+        int a = 0, c = 0;
+
+        c++;
         if (position > _size || position < 0) {
             std::cout << "Invalid range for insertion.\n";
             return;
         }
 
+        c++;
         if (position == _size) {
             append(data);
             return;
         }
 
         _size++;
+        a++;
 
+        c++;
         if (!_first) {
             _first = _last = new Node<T>(data);
+            a++;
+            std::cout << "\nINSERT operation log:\n";
+            std::cout << "Count of assignments: " << a << '\n';
+            std::cout << "Count of comparisons: " << c << '\n';
             return;
         }
 
+        c++;
         if (position == 0) {
             Node<T>* newNode = new Node<T>(data);
             newNode->next(*_first);
             _first->previous(*newNode);
             _first = newNode;
+            a += 4;
+            std::cout << "\nINSERT operation log:\n";
+            std::cout << "Count of assignments: " << a << '\n';
+            std::cout << "Count of comparisons: " << c << '\n';
             return;
         }
 
+        a++;
         Node<T>* iterator = _first;
+
         for (int counter = 0; counter < position - 1; counter++)
+        {
+            c++;
+            a++;
             iterator = &iterator->next();
+        }
+        c++;
 
         Node<T>* newNode = new Node<T>(data);
         Node<T>* previous = &iterator->previous();
@@ -113,65 +148,120 @@ namespace DataStructure::Query::Linked
         newNode->previous(*previous);
         previous->next(*newNode);
         iterator->previous(*newNode);
+        a += 6;
+
+        std::cout << "\nINSERT operation log:\n";
+        std::cout << "Count of assignments: " << a << '\n';
+        std::cout << "Count of comparisons: " << c << '\n';
     }
 
     template <class T>
     void List<T>::pop()
     {
+        int a = 0, c = 0;
+
+        c++;
         if (_size == 0) {
             std::cout << "There are no elements to be removed.\n";
             return;
         }
-        
+
+        a++;
         _size--;
 
         Node<T>* oldLast = _last;
         _last = &_last->previous();
         delete oldLast;
+
+        a += 2;
+        std::cout << "\nPOP operation log:\n";
+        std::cout << "Count of assignments: " << a << '\n';
+        std::cout << "Count of comparisons: " << c << '\n';
     }
 
     template <class T>
     void List<T>::remove(int position)
     {
+        int a = 0, c = 0;
+
+        c++;
         if (position > _size || position < 0) {
             std::cout << "Invalid range for remotion.\n";
             return;
         }
 
+        c++;
         if (_size == 0) {
             std::cout << "There are no elements to be removed.\n";
             return;
         }
 
-        if(position == _size) {
+        c++;
+        if (position == _size) {
             this->pop();
             return;
         }
 
+        a++;
         _size--;
-        if(position == 0) {
+
+        c++;
+        if (position == 0) {
             Node<T>* oldFirst = _first;
             _first = &_first->next();
+            a += 2;
+            std::cout << "\nREMOVE operation log:\n";
+            std::cout << "Count of assignments: " << a << '\n';
+            std::cout << "Count of comparisons: " << c << '\n';
             delete oldFirst;
             return;
         }
 
+        a++;
         Node<T>* iterator = _first;
+
         for (int counter = 0; counter < position; counter++)
+        {
+            c++;
+            a++;
             iterator = &iterator->next();
+        }
+        c++;
 
         Node<T>* previous = &iterator->previous();
         Node<T>* next = &iterator->next();
         next->previous(*previous);
         previous->next(*next);
         delete iterator;
+
+        a += 4;
+
+        std::cout << "\nREMOVE operation log:\n";
+        std::cout << "Count of assignments: " << a << '\n';
+        std::cout << "Count of comparisons: " << c << '\n';
     }
 
     template <class T>
     T& List<T>::find(const T data)
     {
+        int a = 0, c = 0;
+
         for (T& item : *this)
-            if (item == data) return item;
+        {
+            c++;
+            if (item == data) {
+                std::cout << "\nFIND operation log:\n";
+                std::cout << "Count of assignments: " << a << '\n';
+                std::cout << "Count of comparisons: " << c << '\n';
+                return item;
+            }
+            c++;
+        }
+        c++;
+
+        std::cout << "\nFIND operation log:\n";
+        std::cout << "Count of assignments: " << a << '\n';
+        std::cout << "Count of comparisons: " << c << '\n';
     }
 
     template <class T>
