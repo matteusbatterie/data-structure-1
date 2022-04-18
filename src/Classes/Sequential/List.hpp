@@ -42,9 +42,12 @@ namespace DataStructure::Query::Sequential
         T& find(const T data) const;
         void findAt(int position) const;
 
+        List<T>* selectionSort();
+        List<T>* insertionSort();
+
         // temporary solution
         void print() {
-            for(int index = 0; index < _size; index++)
+            for (int index = 0; index < _size; index++)
                 std::cout << _first[index] << '\n';
         }
 
@@ -142,6 +145,43 @@ namespace DataStructure::Query::Sequential
         for (int index = 0; index < _size; index++)
             if (_first[index] == data) return _first[index];
     }
+
+    template <class T>
+    List<T>* List<T>::selectionSort()
+    {
+        for (int currentPosition = 0; currentPosition < _size; currentPosition++)
+        {
+            T currentElement = _first[currentPosition];
+
+            int smallestPosition = currentPosition;
+            T smallestElement = _first[smallestPosition];
+            for (int j = currentPosition + 1; j < _size; j++)
+                if (_first[j] < smallestElement)
+                    smallestElement = _first[smallestPosition = j];
+
+            _first[currentPosition] = smallestElement;
+            _first[smallestPosition] = currentElement;
+        }
+
+        return this;
+    }
+    template <class T>
+    List<T>* List<T>::insertionSort()
+    {
+        for (int i = 1; i < _size; i++)
+        {
+            T currentElement = _first[i];
+
+            int j = i - 1;
+            for (i >= 0 && currentElement <= _first[j]; j--)
+                _first[j + 1] = _first[j];
+
+            _first[j + 1] = currentElement;
+        }
+
+        return this;
+    }
+
 
     template <class T>
     ostream& operator<<(ostream& os, const List<T>& list)

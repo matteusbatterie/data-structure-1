@@ -49,7 +49,7 @@ namespace Management
 
             while (_menuManager->listOption() != "1"
                 && _menuManager->listOption() != "2")
-            {    
+            {
                 std::cout << "1 - Sequential List\n";
                 std::cout << "2 - Linked List\n";
                 std::cout << ">> ";
@@ -79,10 +79,11 @@ namespace Management
             {
                 std::cout << "1 - Insert\n";
                 std::cout << "2 - Remove\n";
-                std::cout << "3 - Search\n";
-                std::cout << "4 - Display\n";
-                std::cout << "5 - Save\n";
-                std::cout << "6 - Load\n";
+                std::cout << "3 - Sort\n";
+                std::cout << "4 - Search\n";
+                std::cout << "5 - Display\n";
+                std::cout << "6 - Save\n";
+                std::cout << "7 - Load\n";
                 std::cout << "0 - Quit\n";
                 std::cout << ">> ";
 
@@ -100,18 +101,22 @@ namespace Management
                     break;
                 case '3':
                     _menuManager->mainMenuOption("3");
-                    search();
+                    sortMenu();
                     break;
                 case '4':
                     _menuManager->mainMenuOption("4");
-                    display();
+                    search();
                     break;
                 case '5':
                     _menuManager->mainMenuOption("5");
-                    save();
+                    display();
                     break;
                 case '6':
                     _menuManager->mainMenuOption("6");
+                    save();
+                    break;
+                case '7':
+                    _menuManager->mainMenuOption("7");
                     load();
                     break;
                 case '0':
@@ -300,6 +305,63 @@ namespace Management
                 _listManager->linked()->remove(position - 1);
         }
 
+        void sortMenu() {
+            while (_menuManager->sortMenuOption() != "0")
+            {
+                std::cout << "1 - Selection Sort\n";
+                std::cout << "2 - Insertion Sort\n";
+                std::cout << "3 - Bubble Sort\n";
+                std::cout << "4 - Shell Sort\n";
+                std::cout << "5 - Quick Sort\n";
+                std::cout << "6 - Merge Sort\n";
+                std::cout << "0 - Quit\n";
+
+                char option = getchar();
+                clearBuffer();
+                switch (option)
+                {
+                case '1':
+                    _menuManager->sortMenuOption("1");
+                    selectionSort();
+                    // 
+                    break;
+                case '2':
+                    _menuManager->sortMenuOption("2");
+                    insertionSort();
+                    //
+                    break;
+                case '3':
+                    _menuManager->sortMenuOption("3");
+                    break;
+                case '4':
+                    _menuManager->sortMenuOption("4");
+                    break;
+                case '5':
+                    _menuManager->sortMenuOption("5");
+                    break;
+                case '6':
+                    _menuManager->sortMenuOption("6");
+                    break;
+                case '0':
+                    _menuManager->sortMenuOption("0");
+                    break;
+                default:
+                    std::cout << "Invalid option.\n";
+                    break;
+                }
+            }
+        }
+
+        void selectionSort() {
+            if(_menuManager->listOption() == "1") 
+                _listManager->sequential()->selectionSort();
+            else if(_menuManager->listOption() == "2")
+                _listManager->linked()->selectionSort();
+        }
+        void insertionSort() {
+
+        }
+
         void search() {
             int personId;
 
@@ -310,12 +372,12 @@ namespace Management
             Person result;
 
             if (_menuManager->listOption() == "1")
-                result =_listManager->sequential()->find(Person(personId));
+                result = _listManager->sequential()->find(Person(personId));
 
             else if (_menuManager->listOption() == "2")
                 result = _listManager->linked()->find(Person(personId));
 
-            if(result.id() != 0)
+            if (result.id() != 0)
                 std::cout << result << '\n';
         }
 
@@ -333,10 +395,10 @@ namespace Management
             std::cout << ">> ";
             std::cin >> fileName;
 
-            if(_menuManager->listOption() == "1")
+            if (_menuManager->listOption() == "1")
                 _fileManager->write(fileName, *(_listManager->sequential()));
-            else if(_menuManager->listOption() == "2")
-                for(Person& person : *_listManager->linked())
+            else if (_menuManager->listOption() == "2")
+                for (Person& person : *_listManager->linked())
                 {
                     string line = person.id() + ", " + person.name();
                     _fileManager->write(fileName, line);
@@ -347,7 +409,7 @@ namespace Management
 
             _fileManager = new FileManager();
             string loadedFile = "";
-            while(loadedFile == "")
+            while (loadedFile == "")
             {
                 std::cout << "Pick a preset file:\n";
                 std::cout << "1 - " << NAME_AND_ID_10.name << '\n';
@@ -362,40 +424,40 @@ namespace Management
 
                 char option = getchar();
                 clearBuffer();
-                switch(option)
+                switch (option)
                 {
                 case '1':
-                    loadedFile = NAME_AND_ID_10.name + "." + NAME_AND_ID_10.type;  
+                    loadedFile = NAME_AND_ID_10.name + "." + NAME_AND_ID_10.type;
                     break;
                 case '2':
-                    loadedFile = NAME_AND_ID_50.name + "." + NAME_AND_ID_50.type; 
+                    loadedFile = NAME_AND_ID_50.name + "." + NAME_AND_ID_50.type;
                     break;
                 case '3':
-                    loadedFile = NAME_AND_ID_100.name + "." + NAME_AND_ID_100.type; 
+                    loadedFile = NAME_AND_ID_100.name + "." + NAME_AND_ID_100.type;
                     break;
                 case '4':
-                    loadedFile = NAME_AND_ID_1K.name + "." + NAME_AND_ID_1K.type; 
+                    loadedFile = NAME_AND_ID_1K.name + "." + NAME_AND_ID_1K.type;
                     break;
                 case '5':
-                    loadedFile = NAME_AND_ID_10K.name + "." + NAME_AND_ID_10K.type; 
+                    loadedFile = NAME_AND_ID_10K.name + "." + NAME_AND_ID_10K.type;
                     break;
                 case '6':
-                    loadedFile = NAME_AND_ID_1M.name + "." + NAME_AND_ID_1M.type; 
+                    loadedFile = NAME_AND_ID_1M.name + "." + NAME_AND_ID_1M.type;
                     break;
                 case '7':
-                    loadedFile = NAME_AND_ID_100M.name + "." + NAME_AND_ID_100M.type; 
+                    loadedFile = NAME_AND_ID_100M.name + "." + NAME_AND_ID_100M.type;
                     break;
                 case '0':
-                    loadedFile = NAME_AND_ID_10.name + "." + NAME_AND_ID_10.type; 
+                    loadedFile = NAME_AND_ID_10.name + "." + NAME_AND_ID_10.type;
                     break;
                 default:
                     std::cout << "Invalid option.\n";
                     break;
                 }
 
-                if(_menuManager->listOption() == "1")
-                        _listManager->sequential(_fileManager->readAsListSequential(loadedFile));
-                else if(_menuManager->listOption() == "2")
+                if (_menuManager->listOption() == "1")
+                    _listManager->sequential(_fileManager->readAsListSequential(loadedFile));
+                else if (_menuManager->listOption() == "2")
                     _listManager->linked(_fileManager->readAsListLinked(loadedFile));
             }
 
@@ -410,6 +472,6 @@ namespace Management
     void Application::clearBuffer()
     {
         int c;
-        while ((c = getchar()) != '\n' && c != EOF) { }
+        while ((c = getchar()) != '\n' && c != EOF) {}
     }
 }
