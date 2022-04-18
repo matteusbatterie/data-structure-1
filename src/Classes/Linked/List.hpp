@@ -18,7 +18,7 @@ namespace DataStructure::Query::Linked
             this->_first = nullptr;
             this->_last = nullptr;
             this->_size = 0;
-            for(T item : copy)
+            for (T item : copy)
                 this->append(item);
         }
         List() {
@@ -44,6 +44,9 @@ namespace DataStructure::Query::Linked
 
         T& find(const T data);
         void findAt(int position);
+
+        List<T>* selectionSort();
+        List<T>* insertionSort();
 
 
         void print() {
@@ -122,7 +125,7 @@ namespace DataStructure::Query::Linked
             std::cout << "There are no elements to be removed.\n";
             return;
         }
-        
+
         _size--;
 
         Node<T>* oldLast = _last;
@@ -143,13 +146,13 @@ namespace DataStructure::Query::Linked
             return;
         }
 
-        if(position == _size) {
+        if (position == _size) {
             this->pop();
             return;
         }
 
         _size--;
-        if(position == 0) {
+        if (position == 0) {
             Node<T>* oldFirst = _first;
             _first = &_first->next();
             delete oldFirst;
@@ -173,6 +176,28 @@ namespace DataStructure::Query::Linked
         for (T& item : *this)
             if (item == data) return item;
     }
+
+    template <class T>
+    List<T>* List<T>::selectionSort()
+    {
+
+    }
+    template <class T>
+    List<T>* List<T>::insertionSort()
+    {
+        std::cout << "To be implemented.\n";
+        // for (Node<T>* it = &_first->next(); it != &_last->next(); it++)
+        // {
+        //     Node<T>* currentElement = it;
+
+        //     Node<T>* it2 = it;
+        //     while(it2 != _first && *it2 <= it2->previous()) it2--;
+
+            
+        // }
+        return this;
+    }
+
 
     template <class T>
     ostream& operator<<(ostream& os, const List<T>& list)
