@@ -44,6 +44,8 @@ namespace DataStructure::Query::Sequential
 
         List<T>* selectionSort();
         List<T>* insertionSort();
+        List<T>* shellSort();
+        List<T>* quickSort();
 
         // temporary solution
         void print() {
@@ -168,18 +170,66 @@ namespace DataStructure::Query::Sequential
     template <class T>
     List<T>* List<T>::insertionSort()
     {
-        for (int i = 1; i < _size; i++)
+        for (int currentPosition = 1; currentPosition < _size; currentPosition++)
         {
-            T currentElement = _first[i];
+            T currentElement = _first[currentPosition];
+            int replacePosition;
 
-            int j = i - 1;
-            for (i >= 0 && currentElement <= _first[j]; j--)
-                _first[j + 1] = _first[j];
+            for (int j = currentPosition - 1; j >= 0 && currentElement <= _first[j]; j--)
+                _first[replacePosition = j + 1] = _first[j];
 
-            _first[j + 1] = currentElement;
+            _first[replacePosition] = currentElement;
         }
 
         return this;
+    }
+    template <class T>
+    List<T>* List<T>::shellSort()
+    {
+        // example
+        //  0  1  2  3  4  5  6  7  8  9
+        // 45 23 53 43 18 24 08 95 10 15
+
+        // 45             24
+        //    23             08
+        //       53             95
+        //          43             10
+        //             18             15
+                    
+        // 24 08 53 10 15 45 23 95 43 18
+            
+        // 24	 53    15    23    43 
+        //    08    10    45    95    18
+        
+        // 15 08 23 10 24 18 53 45 43 95
+        // 08 15 23 10 24 18 53 45 43 95
+        // 08 10 15 23 24 18 53 45 43 95
+        // 08 10 15 18 23 24 53 45 43 95
+        // 08 10 15 18 23 24 45 53 43 95
+        // 08 10 15 18 23 24 43 45 53 95  
+
+        int initialGap = _size/2;
+        for (int gap = initialGap; gap > 0; gap /= 2)
+        {
+            for (int subListFirst = gap; subListFirst < _size; subListFirst++)
+            {
+
+            }
+        }
+
+
+
+        for(int gap = _size/2; gap > 0; gap /= 2)
+            for(int i = gap; i < _size. i++)
+            {
+                T temp = _first[i];
+
+                int j;
+                for(j = i; j >= gap && _first[j - gap] > temp; j -= gap)
+                    _first[j] = _first[j - gap];
+                
+                _first[j] = temp;
+            }
     }
 
 
