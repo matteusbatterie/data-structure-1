@@ -60,6 +60,10 @@ namespace DataStructure::Query::Sequential
         template <class E>
         friend ostream &operator<<(ostream &os, const List<E> &list);
         List<T> &operator=(const List<T> &source);
+
+    private:
+        List<T> *quickSortRecursive(long low, long high);
+        long quickSortPartition(long start, long end);
     };
 
     template <class T>
@@ -206,12 +210,12 @@ namespace DataStructure::Query::Sequential
         //             18             15    // sublist 5
 
         // 24 08 53 10 15 45 23 95 43 18
-        // gap == 2
+        //                                  gap == 2
         // 24	 53    15    23    43       // sublist 1
         //    08    10    45    95    18    // sublist 2
 
         // 15 08 23 10 24 18 53 45 43 95
-        // gap == 1
+        //                                  gap == 1
         // 08 15 23 10 24 18 53 45 43 95
         // 08 10 15 23 24 18 53 45 43 95
         // 08 10 15 18 23 24 53 45 43 95
@@ -232,20 +236,60 @@ namespace DataStructure::Query::Sequential
                 _first[replacePosition] = currentItem;
             }
         }
+    }
+    template <class T>
+    List<T> *List<T>::quickSort()
+    {
+        long low = 0;
+        long high = _size;
+        quickSortRecursive(low, high);
+    }
+    template <class T>
+    List<T> *List<T>::quickSortRecursive(long low, long high)
+    {
+        if (low >= high)
+            return;
 
+        long partitionIndex = quickSortPartition(low, high);
 
+        quickSortRecursive(low, partitionIndex - 1);
+        quickSortRecursive(partitionIndex + 1, high);
+    }
+    template <class T>
+    long List<T>::quickSortPartition(long start, long high)
+    {
+        long pivot = _first[start];
 
-        for (int gap = _size / 2; gap > 0; gap /= 2)
-            for (int i = gap; i < _size.i++)
+        long count = 0;
+        for (int i = start + 1; i <= end; i++)
+            if (_first[i] <= pivot)
+                count++;
+
+        long pivotIndex = start + count;
+        T currentItem = _first[pivotIndex];
+        _first[pivotIndex] = _first[start];
+        _first[start] = currentItem;
+
+        long incrementor = start;
+        long decrementor = end;
+        while (incrementor < pivotIndex && decrementor > pivotIndex)
+        {
+            while (_first[incrementor] <= pivot)
+                incrementor++;
+            while (_first[decrementor] > pivot)
+                decrementor--;
+
+            if (incrementor < pivotIndex && decrementor > pivotIndex)
             {
-                T temp = _first[i];
-
-                int j;
-                for (j = i; j >= gap && _first[j - gap] > temp; j -= gap)
-                    _first[j] = _first[j - gap];
-
-                _first[j] = temp;
+                currentItem = _first[incrementor];
+                _first[incrementor] = _first[decrementor];
+                _first[decrementor] = currentItem;
+                incrementor++;
+                decrementor--;
             }
+        }
+
+        return pivotIndex;
     }
 
     template <class T>
