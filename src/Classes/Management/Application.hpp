@@ -332,15 +332,19 @@ namespace Management
                     break;
                 case '3':
                     _menuManager->sortMenuOption("3");
+                    //bubbleSort();
                     break;
                 case '4':
                     _menuManager->sortMenuOption("4");
+                    shellSort();
                     break;
                 case '5':
                     _menuManager->sortMenuOption("5");
+                    quickSort();
                     break;
                 case '6':
                     _menuManager->sortMenuOption("6");
+                    //mergeSort();
                     break;
                 case '0':
                     _menuManager->sortMenuOption("0");
@@ -350,6 +354,7 @@ namespace Management
                     break;
                 }
             }
+            _menuManager->sortMenuOption("");
         }
 
         void selectionSort() {
@@ -359,7 +364,22 @@ namespace Management
                 _listManager->linked()->selectionSort();
         }
         void insertionSort() {
-
+            if(_menuManager->listOption() == "1") 
+                _listManager->sequential()->insertionSort();
+            else if(_menuManager->listOption() == "2")
+                _listManager->linked()->insertionSort();
+        }
+        void shellSort() {
+            if(_menuManager->listOption() == "1") 
+                _listManager->sequential()->shellSort();
+            // else if(_menuManager->listOption() == "2")
+                //_listManager->linked()->shellSort();
+        }
+        void quickSort() {
+            if(_menuManager->listOption() == "1") 
+                _listManager->sequential()->quickSort();
+            // else if(_menuManager->listOption() == "2")
+                //_listManager->linked()->quickSort();
         }
 
         void search() {

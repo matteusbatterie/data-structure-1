@@ -186,9 +186,9 @@ namespace DataStructure::Query::Sequential
         for (long currentPosition = 1; currentPosition < _size; currentPosition++)
         {
             T currentElement = _first[currentPosition];
-            long replacePosition;
+            long replacePosition = currentPosition -1;
 
-            for (long j = currentPosition - 1; j >= 0 && currentElement <= _first[j]; j--)
+            for (long j = replacePosition; j >= 0 && currentElement <= _first[j]; j--)
                 _first[replacePosition = j + 1] = _first[j];
 
             _first[replacePosition] = currentElement;
@@ -227,7 +227,7 @@ namespace DataStructure::Query::Sequential
         {
             for (long subListFirst = gap; subListFirst < _size; subListFirst++)
             {
-                T currentItem = _first[i];
+                T currentItem = _first[subListFirst];
 
                 long replacePosition;
                 for (replacePosition = subListFirst; replacePosition >= gap && _first[replacePosition - gap] > currentItem; replacePosition -= gap)
@@ -248,7 +248,7 @@ namespace DataStructure::Query::Sequential
     List<T> *List<T>::quickSortRecursive(long low, long high)
     {
         if (low >= high)
-            return;
+            return this;
 
         long partitionIndex = quickSortPartition(low, high);
 
@@ -258,7 +258,7 @@ namespace DataStructure::Query::Sequential
     template <class T>
     long List<T>::quickSortPartition(long start, long end)
     {
-        long pivot = _first[start];
+        T pivot = _first[start];
 
         long count = 0;
         for (int i = start + 1; i <= end; i++)
