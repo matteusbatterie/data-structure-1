@@ -47,7 +47,7 @@ namespace DataStructure::Query::Linked
 
 
         void print() {
-            for (Node<T>* iterator = _first; iterator != _last; iterator = &(iterator->next()))
+            for (Node<T>* iterator = _first; iterator != &_last->next(); iterator = &(iterator->next()))
                 std::cout << iterator->data() << '\n';
         }
 
@@ -72,11 +72,11 @@ namespace DataStructure::Query::Linked
         if (!_first) {
             a++;
             _first = _last = new Node<T>(data);
-            std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-            std::cout << "\nAPPEND operation log:\n";
-            std::cout << "Count of assignments: " << a << '\n';
-            std::cout << "Count of comparisons: " << c << '\n';
-            std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
+            // std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+            // std::cout << "\nAPPEND operation log:\n";
+            // std::cout << "Count of assignments: " << a << '\n';
+            // std::cout << "Count of comparisons: " << c << '\n';
+            // std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
             return;
         }
 
@@ -87,10 +87,10 @@ namespace DataStructure::Query::Linked
         a += 4;
 
         std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-        std::cout << "\nAPPEND operation log:\n";
-        std::cout << "Count of assignments: " << a << '\n';
-        std::cout << "Count of comparisons: " << c << '\n';
-        std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
+        // std::cout << "\nAPPEND operation log:\n";
+        // std::cout << "Count of assignments: " << a << '\n';
+        // std::cout << "Count of comparisons: " << c << '\n';
+        // std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
     }
 
     template <class T>
@@ -119,10 +119,10 @@ namespace DataStructure::Query::Linked
             _first = _last = new Node<T>(data);
             a++;
             std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-            std::cout << "\nINSERT operation log:\n";
-            std::cout << "Count of assignments: " << a << '\n';
-            std::cout << "Count of comparisons: " << c << '\n';
-            std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
+            // std::cout << "\nINSERT operation log:\n";
+            // std::cout << "Count of assignments: " << a << '\n';
+            // std::cout << "Count of comparisons: " << c << '\n';
+            // std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
 
             return;
         }
@@ -135,10 +135,10 @@ namespace DataStructure::Query::Linked
             _first = newNode;
             a += 4;
             std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-            std::cout << "\nINSERT operation log:\n";
-            std::cout << "Count of assignments: " << a << '\n';
-            std::cout << "Count of comparisons: " << c << '\n';
-            std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
+            // std::cout << "\nINSERT operation log:\n";
+            // std::cout << "Count of assignments: " << a << '\n';
+            // std::cout << "Count of comparisons: " << c << '\n';
+            // std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
 
             return;
         }
@@ -146,7 +146,7 @@ namespace DataStructure::Query::Linked
         a++;
         Node<T>* iterator = _first;
 
-        for (int counter = 0; counter < position - 1; counter++)
+        for (int counter = 0; counter < position; counter++)
         {
             c++;
             a++;
@@ -163,10 +163,10 @@ namespace DataStructure::Query::Linked
         a += 6;
 
         std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-        std::cout << "\nINSERT operation log:\n";
-        std::cout << "Count of assignments: " << a << '\n';
-        std::cout << "Count of comparisons: " << c << '\n';
-        std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
+        // std::cout << "\nINSERT operation log:\n";
+        // std::cout << "Count of assignments: " << a << '\n';
+        // std::cout << "Count of comparisons: " << c << '\n';
+        // std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
     }
 
     template <class T>
@@ -191,10 +191,10 @@ namespace DataStructure::Query::Linked
         a += 2;
 
         std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-        std::cout << "\nPOP operation log:\n";
-        std::cout << "Count of assignments: " << a << '\n';
-        std::cout << "Count of comparisons: " << c << '\n';
-        std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
+        // std::cout << "\nPOP operation log:\n";
+        // std::cout << "Count of assignments: " << a << '\n';
+        // std::cout << "Count of comparisons: " << c << '\n';
+        // std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
     }
 
     template <class T>
@@ -230,10 +230,10 @@ namespace DataStructure::Query::Linked
             _first = &_first->next();
             a += 2;
             std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-            std::cout << "\nREMOVE operation log:\n";
-            std::cout << "Count of assignments: " << a << '\n';
-            std::cout << "Count of comparisons: " << c << '\n';
-            std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
+            // std::cout << "\nREMOVE operation log:\n";
+            // std::cout << "Count of assignments: " << a << '\n';
+            // std::cout << "Count of comparisons: " << c << '\n';
+            // std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
             delete oldFirst;
             return;
         }
@@ -258,10 +258,10 @@ namespace DataStructure::Query::Linked
         a += 4;
 
         std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-        std::cout << "\nREMOVE operation log:\n";
-        std::cout << "Count of assignments: " << a << '\n';
-        std::cout << "Count of comparisons: " << c << '\n';
-        std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
+        // std::cout << "\nREMOVE operation log:\n";
+        // std::cout << "Count of assignments: " << a << '\n';
+        // std::cout << "Count of comparisons: " << c << '\n';
+        // std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
     }
 
     template <class T>
@@ -275,10 +275,10 @@ namespace DataStructure::Query::Linked
             c++;
             if (item == data) {
                 std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-                std::cout << "\nFIND operation log:\n";
-                std::cout << "Count of assignments: " << a << '\n';
-                std::cout << "Count of comparisons: " << c << '\n';
-                std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
+                // std::cout << "\nFIND operation log:\n";
+                // std::cout << "Count of assignments: " << a << '\n';
+                // std::cout << "Count of comparisons: " << c << '\n';
+                // std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
                 return item;
             }
             c++;
@@ -286,10 +286,10 @@ namespace DataStructure::Query::Linked
         c++;
 
         std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-        std::cout << "\nFIND operation log:\n";
-        std::cout << "Count of assignments: " << a << '\n';
-        std::cout << "Count of comparisons: " << c << '\n';
-        std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
+        // std::cout << "\nFIND operation log:\n";
+        // std::cout << "Count of assignments: " << a << '\n';
+        // std::cout << "Count of comparisons: " << c << '\n';
+        // std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
     }
 
     template <class T>

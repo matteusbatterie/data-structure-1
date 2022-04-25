@@ -6,7 +6,7 @@ namespace DataStructure::Query::Linked
     class Node
     {
     private:
-        int _position;
+        long _position;
         T* _data;
         Node<T>* _previous;
         Node<T>* _next;

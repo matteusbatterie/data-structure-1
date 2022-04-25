@@ -79,10 +79,10 @@ namespace DataStructure::Query::Sequential
         a++;
 
         std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-        std::cout << "\nAPPEND operation log:\n";
-        std::cout << "Count of assignments: " << a << '\n';
-        std::cout << "Count of comparisons: " << c << '\n';
-        std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
+        // std::cout << "\nAPPEND operation log:\n";
+        // std::cout << "Count of assignments: " << a << '\n';
+        // std::cout << "Count of comparisons: " << c << '\n';
+        // std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
 
     }
 
@@ -125,10 +125,10 @@ namespace DataStructure::Query::Sequential
         a++;
 
         std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-        std::cout << "\nINSERT operation log:\n";
-        std::cout << "Count of assignments: " << a << '\n';
-        std::cout << "Count of comparisons: " << c << '\n';
-        std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
+        // std::cout << "\nINSERT operation log:\n";
+        // std::cout << "Count of assignments: " << a << '\n';
+        // std::cout << "Count of comparisons: " << c << '\n';
+        // std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
     }
 
     template <class T>
@@ -158,10 +158,10 @@ namespace DataStructure::Query::Sequential
         a++;
 
         std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-        std::cout << "\nPOP operation log:\n";
-        std::cout << "Count of assignments: " << a << '\n';
-        std::cout << "Count of comparisons: " << c << '\n';
-        std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
+        // std::cout << "\nPOP operation log:\n";
+        // std::cout << "Count of assignments: " << a << '\n';
+        // std::cout << "Count of comparisons: " << c << '\n';
+        // std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
     }
 
     template <class T>
@@ -205,10 +205,10 @@ namespace DataStructure::Query::Sequential
         a++;
 
         std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-        std::cout << "\nREMOVE operation log:\n";
-        std::cout << "Count of assignments: " << a << '\n';
-        std::cout << "Count of comparisons: " << c << '\n';
-        std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
+        // std::cout << "\nREMOVE operation log:\n";
+        // std::cout << "Count of assignments: " << a << '\n';
+        // std::cout << "Count of comparisons: " << c << '\n';
+        // std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
 
     }
 
@@ -223,10 +223,10 @@ namespace DataStructure::Query::Sequential
             c++;
             if (_first[index] == data) {
                 std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-                std::cout << "\nFIND operation log:\n";
-                std::cout << "Count of assignments: " << a << '\n';
-                std::cout << "Count of comparisons: " << c << '\n';
-                std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
+                // std::cout << "\nFIND operation log:\n";
+                // std::cout << "Count of assignments: " << a << '\n';
+                // std::cout << "Count of comparisons: " << c << '\n';
+                // std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
                 return _first[index];
             }
             c++;
@@ -234,10 +234,10 @@ namespace DataStructure::Query::Sequential
         c++;
 
         std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-        std::cout << "\nFIND operation log:\n";
-        std::cout << "Count of assignments: " << a << '\n';
-        std::cout << "Count of comparisons: " << c << '\n';
-        std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
+        // std::cout << "\nFIND operation log:\n";
+        // std::cout << "Count of assignments: " << a << '\n';
+        // std::cout << "Count of comparisons: " << c << '\n';
+        // std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
     }
 
     template <class T>
