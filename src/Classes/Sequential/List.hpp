@@ -256,7 +256,7 @@ namespace DataStructure::Query::Sequential
         quickSortRecursive(partitionIndex + 1, high);
     }
     template <class T>
-    long List<T>::quickSortPartition(long start, long high)
+    long List<T>::quickSortPartition(long start, long end)
     {
         long pivot = _first[start];
 
