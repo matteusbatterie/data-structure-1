@@ -371,7 +371,7 @@ namespace DataStructure::Query::Linked
                 assignmentCount++;
                 assignmentCount++;
                 assignmentCount += position;
-                assignmentCount += ;
+                assignmentCount += 4;
                 std::cout << "Count of assignments: " << assignmentCount << '\n';
             }
             if (FeatureFlag::CONDITION_COUNTER)
