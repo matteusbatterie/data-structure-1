@@ -14,13 +14,13 @@ namespace Management::File
         ~FileWriter() {}
 
         void write(string fileName, string line) {
-            ofstream myfile(fileName + ".txt");
+            std::ofstream myfile(fileName + ".txt");
             if (myfile.is_open())
             {
-                myfile << line << endl;
+                myfile << line << '\n';
                 myfile.close();
             }
-            else cout << "Unable to open file\n";
+            else std::cout << "Unable to open file\n";
         }
         void write(string fileName, Sequential::List<Person> list) {
             for (int index = 0; index < list.size(); index++)

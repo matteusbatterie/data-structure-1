@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include "./Classes/Management/File/FileManager.hpp"
-#include "./Classes/Constants/FilesNames.hpp"
+#include "./Constants/FilesNames.hpp"
 #include "./Classes/Management/Application.hpp"
 
 using namespace Management::File;
@@ -59,12 +59,12 @@ void Main::firstPresentation() {
     auto [fileName, fileType] = PeopleFilesNames::NAME_AND_ID_10;
     Sequential::List<Person> sequentialList = FileManager().readAsListSequential(fileName + "." + fileType);
 
-    cout << sequentialList << '\n';
+    std::cout << sequentialList << '\n';
 }
 void Main::secondPresentation() {
     auto [fileName, fileType] = PeopleFilesNames::NAME_AND_ID_10;
     Linked::List<Person> linkedList = FileManager().readAsListLinked(fileName + "." + fileType);
 
-    cout << linkedList << '\n';
+    std::cout << linkedList << '\n';
 }
 

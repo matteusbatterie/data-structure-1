@@ -2,8 +2,7 @@
 #include "./File/FileManager.hpp"
 #include "../Management/ListManager.hpp"
 #include "../Management/MenuManager.hpp"
-#include "../Constants/FilesNames.hpp"
-
+#include "../../Constants/FilesNames.hpp"
 
 namespace Management
 {
@@ -200,10 +199,10 @@ namespace Management
 
             std::cout << "Enter the person name:\n";
             std::cout << ">> ";
-            cin >> personName;
+            std::cin >> personName;
             std::cout << "Enter the person ID:\n";
             std::cout << ">> ";
-            cin >> personId;
+            std::cin >> personId;
 
             Person person = Person(personId, personName);
 
@@ -219,10 +218,10 @@ namespace Management
 
             std::cout << "Enter the person name:\n";
             std::cout << ">> ";
-            cin >> personName;
+            std::cin >> personName;
             std::cout << "Enter the person ID:\n";
             std::cout << ">> ";
-            cin >> personId;
+            std::cin >> personId;
 
             Person person = Person(personId, personName);
 
@@ -291,7 +290,7 @@ namespace Management
             int position;
             std::cout << "Enter the position (1 - " << maxSize << "):\n";
             std::cout << ">> ";
-            cin >> position;
+            std::cin >> position;
 
             if (_menuManager->listOption() == "1")
                 _listManager->sequential()->remove(position - 1);
