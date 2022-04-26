@@ -147,6 +147,7 @@ namespace Management
                 case '3':
                     _menuManager->insertMenuOption("3");
                     insertPosition();
+                    break;
                 case '0':
                     _menuManager->insertMenuOption("0");
                     break;
