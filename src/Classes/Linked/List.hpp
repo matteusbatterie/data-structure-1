@@ -1,8 +1,6 @@
 #pragma once
 #include "./Node.hpp"
 
-using std::ostream;
-
 namespace DataStructure::Query::Linked
 {
     template <class T>
@@ -57,7 +55,7 @@ namespace DataStructure::Query::Linked
         Node<T> &end() const { return _last->next(); }
 
         template <class E>
-        friend ostream &operator<<(ostream &os, const List<E> &list);
+        friend std::ostream &operator<<(ostream &os, const List<E> &list);
         List<T> &operator=(const List<T> &source);
     };
 
@@ -290,7 +288,11 @@ namespace DataStructure::Query::Linked
                 std::cout << "Count of comparisons: " << conditionCount << '\n';
             }
         }
-        std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "ms" << std::endl;
+        if (FeatureFlag::TIMER)
+        {
+            Timer::end();
+            std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms\n";
+        }
     }
 
     template <class T>
@@ -395,7 +397,10 @@ namespace DataStructure::Query::Linked
     T &List<T>::find(const T data)
     {
         for (T &item : *this)
-            if (item == data) return item;
+            if (item == data)
+                return item;
+
+        throw std::exception();
     }
 
     template <class T>

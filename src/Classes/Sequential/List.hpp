@@ -339,6 +339,8 @@ namespace DataStructure::Query::Sequential
             Timer::end();
             std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms\n";
         }
+
+        throw std::exception();
     }
 
     template <class T>
