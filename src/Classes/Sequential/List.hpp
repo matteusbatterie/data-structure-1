@@ -337,7 +337,7 @@ namespace DataStructure::Query::Sequential
         T* leftArray = new T[leftArraySize];
         T* rightArray = new T[rightArraySize];
 
-        // Copying left data to left array (begin : middle - start + 1)
+        // Copying left data to left array (begin : middle)
         for (long index = 0; index < leftArraySize; index++)
             leftArray[index] = _first[start + index];
         // Copying right data to right array (middle + 1 : end)
