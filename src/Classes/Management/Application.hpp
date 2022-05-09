@@ -2,8 +2,7 @@
 #include "./File/FileManager.hpp"
 #include "../Management/ListManager.hpp"
 #include "../Management/MenuManager.hpp"
-#include "../Constants/FilesNames.hpp"
-
+#include "../../Constants/FilesNames.hpp"
 
 namespace Management
 {
@@ -153,6 +152,7 @@ namespace Management
                 case '3':
                     _menuManager->insertMenuOption("3");
                     insertPosition();
+                    break;
                 case '0':
                     _menuManager->insertMenuOption("0");
                     break;
@@ -205,10 +205,10 @@ namespace Management
 
             std::cout << "Enter the person name:\n";
             std::cout << ">> ";
-            cin >> personName;
+            std::cin >> personName;
             std::cout << "Enter the person ID:\n";
             std::cout << ">> ";
-            cin >> personId;
+            std::cin >> personId;
 
             Person person = Person(personId, personName);
 
@@ -224,10 +224,10 @@ namespace Management
 
             std::cout << "Enter the person name:\n";
             std::cout << ">> ";
-            cin >> personName;
+            std::cin >> personName;
             std::cout << "Enter the person ID:\n";
             std::cout << ">> ";
-            cin >> personId;
+            std::cin >> personId;
 
             Person person = Person(personId, personName);
 
@@ -252,24 +252,24 @@ namespace Management
             std::cout << "Enter the person name:\n";
             std::cout << ">> ";
             clearBuffer();
-            cin >> personName;
+            std::cin >> personName;
 
             std::cout << "Enter the person ID:\n";
             std::cout << ">> ";
             clearBuffer();
-            cin >> personId;
+            std::cin >> personId;
 
             std::cout << "Enter the position (1 - " << maxSize << "):\n";
             std::cout << ">> ";
             clearBuffer();
-            cin >> position;
+            std::cin >> position;
 
             Person person = Person(personId, personName);
 
             if (_menuManager->listOption() == "1" && position < maxSize)
-                _listManager->sequential()->insert(person, position);
+                _listManager->sequential()->insert(person, position - 1);
             else if (_menuManager->listOption() == "2" && position < maxSize)
-                _listManager->linked()->insert(person, position);
+                _listManager->linked()->insert(person, position - 1);
         }
 
         void removeBegin() {
@@ -296,7 +296,7 @@ namespace Management
             int position;
             std::cout << "Enter the position (1 - " << maxSize << "):\n";
             std::cout << ">> ";
-            cin >> position;
+            std::cin >> position;
 
             if (_menuManager->listOption() == "1")
                 _listManager->sequential()->remove(position - 1);

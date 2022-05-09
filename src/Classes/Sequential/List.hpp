@@ -4,7 +4,11 @@
 #include <algorithm>
 #include "../Entities/Person.hpp"
 
-using namespace std;
+#include "../../Configuration/FeatureFlag.hpp"
+#include "../Util/Timer.hpp"
+
+using namespace Configuration;
+using namespace Util;
 
 namespace DataStructure::Query::Sequential
 {
@@ -37,7 +41,7 @@ namespace DataStructure::Query::Sequential
         unsigned long size() const { return this->_size; }
 
         void append(T data);
-        void insert(T data, int position);
+        void insert(T data, long position);
 
         void pop();
         void remove(int position);
@@ -52,6 +56,7 @@ namespace DataStructure::Query::Sequential
         List<T>* shellSort();
         List<T>* quickSort();
         List<T>* mergeSort();
+
 
         // temporary solution
         void print()
@@ -70,72 +75,169 @@ namespace DataStructure::Query::Sequential
 
         void mergeSortRecursive(long start, long end);
         void mergeSortMerge(long start, long middle, long end);
+
     };
 
     template <class T>
     void List<T>::append(T data)
     {
-        T* newList = new T[++_size];
+        // if (FeatureFlag::TIMER)
+        //     Timer::begin();
 
-        for (unsigned int index = 0;
-            index < _size - 1;
-            index++)
-        {
+        T *newList = new T[++_size];
+        for (long index = 0; index < _size - 1; index++)
             newList[index] = _first[index];
-        }
+
         newList[_size - 1] = data;
 
         delete[] _first;
         _first = newList;
+
+        // if (FeatureFlag::ASSIGNMENT_COUNTER || FeatureFlag::CONDITION_COUNTER)
+        // {
+        //     std::cout << "\nAPPEND operation log:\n";
+
+        //     if (FeatureFlag::ASSIGNMENT_COUNTER)
+        //     {
+        //         long assignmentCounter = 0;
+        //         assignmentCounter++;        // created new list
+        //         assignmentCounter += _size; // copying "_size" positions to new array
+        //         assignmentCounter++;        // assigning new data
+        //         assignmentCounter++;        // assigning new list
+
+        //         std::cout << "Count of assignments: " << assignmentCounter << '\n';
+        //     }
+        //     if (FeatureFlag::CONDITION_COUNTER)
+        //     {
+        //         long conditionCounter = 0;
+        //         conditionCounter += _size; // checking if for loop has reached end
+        //         conditionCounter++;        // additional check that breaks out of loop
+
+        //         std::cout << "Count of comparisons: " << conditionCounter << '\n';
+        //     }
+        // }
+        // if (FeatureFlag::TIMER)
+        // {
+        //     Timer::end();
+        //     std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms\n";
+        // }
     }
 
     template <class T>
-    void List<T>::insert(T data, int position)
+    void List<T>::insert(T data, long position)
     {
+        // if (FeatureFlag::TIMER)
+        //     Timer::begin();
+
         if (position > _size || position < 0)
         {
             std::cout << "Invalid range for insertion.\n";
             return;
         }
 
-        T* newList = new T[++_size];
-
-        for (int index = 0; index < position; index++)
+        T *newList = new T[++_size];
+        for (long index = 0; index < position; index++)
             newList[index] = _first[index];
 
         newList[position] = data;
 
-        for (int index2 = position + 1; index2 < _size; index2++)
+        for (long index2 = position + 1; index2 < _size; index2++)
             newList[index2] = _first[index2 - 1];
 
         delete[] _first;
         _first = newList;
+
+        // if (FeatureFlag::ASSIGNMENT_COUNTER || FeatureFlag::CONDITION_COUNTER)
+        // {
+
+        //     std::cout << "\nINSERT operation log:\n";
+
+        //     if (FeatureFlag::ASSIGNMENT_COUNTER)
+        //     {
+        //         long assignmentCounter = 0;
+        //         assignmentCounter++;                         // created new list
+        //         assignmentCounter += position;               // copying "position" positions to new array
+        //         assignmentCounter++;                         // copying new data
+        //         assignmentCounter += _size - (position + 1); // copying "size - (position + 1)" positions to new array
+        //         assignmentCounter++;                         // assigning new list
+
+        //         std::cout << "Count of assignments: " << assignmentCounter << '\n';
+        //     }
+        //     if (FeatureFlag::CONDITION_COUNTER)
+        //     {
+        //         long conditionCounter = 0;
+        //         conditionCounter++;                         // checking if position is valid
+        //         conditionCounter += position;               // checking if for loop has reached end
+        //         conditionCounter++;                         // additional check that breaks out of loop
+        //         conditionCounter += _size - (position + 1); // checking if second for loop has reached end
+        //         conditionCounter++;                         // additiona check that breaks out fo second loop
+
+        //         std::cout << "Count of comparisons: " << conditionCounter << '\n';
+        //     }
+        // }
+        // if (FeatureFlag::TIMER)
+        // {
+        //     Timer::end();
+        //     std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms\n";
+        // }
     }
 
     template <class T>
     void List<T>::pop()
     {
+        if (FeatureFlag::TIMER)
+            Timer::begin();
+
         if (_size == 0)
         {
             std::cout << "There are no elements to be removed.\n";
             return;
         }
 
-        T* newList = new T[--_size];
-        for (int index = 0;
-            index < _size;
-            index++)
-        {
+        T *newList = new T[--_size];
+
+        for (long index = 0; index < _size; index++)
             newList[index] = _first[index];
-        }
 
         delete[] _first;
         _first = newList;
+
+        if (FeatureFlag::ASSIGNMENT_COUNTER || FeatureFlag::CONDITION_COUNTER)
+        {
+            std::cout << "\nPOP operation log:\n";
+
+            if (FeatureFlag::ASSIGNMENT_COUNTER)
+            {
+                long assignmentCounter = 0;
+                assignmentCounter++;        // created new list
+                assignmentCounter += _size; // copying "_size" positions to new list
+                assignmentCounter++;        // assigning new list
+
+                std::cout << "Count of assignments: " << assignmentCounter << '\n';
+            }
+            if (FeatureFlag::CONDITION_COUNTER)
+            {
+                long conditionCounter = 0;
+                conditionCounter++;        // checks if there is an element to remove
+                conditionCounter += _size; // checking if for loop has reached end
+                conditionCounter++;        // additional check that breaks out of loop
+
+                std::cout << "Count of comparisons: " << conditionCounter << '\n';
+            }
+        }
+        if (FeatureFlag::TIMER)
+        {
+            Timer::end();
+            std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms\n";
+        }
     }
 
     template <class T>
     void List<T>::remove(int position)
     {
+        if (FeatureFlag::TIMER)
+            Timer::begin();
+
         if (position > _size || position < 0)
         {
             std::cout << "Invalid range for remotion.\n";
@@ -148,19 +250,53 @@ namespace DataStructure::Query::Sequential
             return;
         }
 
-        T* newList = new T[--_size];
-        for (int index = 0; index < position; index++)
+        T *newList = new T[--_size];
+
+        for (long index = 0; index < position; index++)
             newList[index] = _first[index];
 
-        for (int index = position + 1; index < _size + 1; index++)
+        for (long index = position + 1; index < _size + 1; index++)
             newList[index - 1] = _first[index];
 
         delete[] _first;
         _first = newList;
+
+        if (FeatureFlag::ASSIGNMENT_COUNTER || FeatureFlag::CONDITION_COUNTER)
+        {
+            std::cout << "\nREMOVE operation log:\n";
+
+            if (FeatureFlag::ASSIGNMENT_COUNTER)
+            {
+                long assignmentCounter = 0;
+                assignmentCounter++;                         // created new list
+                assignmentCounter += position;               // copying "position" positions to new list
+                assignmentCounter += _size - (position + 1); // copying "_size - (position + 1)" positions to new list]
+                assignmentCounter++;                         // assigning new list
+
+                std::cout << "Count of assignments: " << assignmentCounter << '\n';
+            }
+            if (FeatureFlag::CONDITION_COUNTER)
+            {
+                long conditionCounter = 0;
+                conditionCounter++;                         // checks if position is valid
+                conditionCounter++;                         // checks if there list is empty
+                conditionCounter += position;               // checking if for loop has reached end
+                conditionCounter++;                         // additional check that breaks out of loop
+                conditionCounter += _size - (position + 1); // checking if second for loop has reached end
+                conditionCounter++;                         // additional check that breaks out of second loop
+
+                std::cout << "Count of comparisons: " << conditionCounter << '\n';
+            }
+        }
+        if (FeatureFlag::TIMER)
+        {
+            Timer::end();
+            std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms\n";
+        }
     }
 
     template <class T>
-    T& List<T>::find(const T data) const
+    T &List<T>::find(const T data) const
     {
         for (long index = 0; index < _size; index++)
             if (_first[index] == data)
@@ -177,7 +313,9 @@ namespace DataStructure::Query::Sequential
     template <class T>
     List<T>* List<T>::selectionSort()
     {
-        
+        if(FeatureFlag::TIMER)
+            Timer::begin();
+
         for (long currentPosition = 0; currentPosition < _size; currentPosition++)
         {
             T currentElement = _first[currentPosition];
@@ -192,11 +330,48 @@ namespace DataStructure::Query::Sequential
             _first[smallestPosition] = currentElement;
         }
 
+        if(FeatureFlag::ASSIGNMENT_COUNTER || FeatureFlag::CONDITION_COUNTER) {
+            if (FeatureFlag::ASSIGNMENT_COUNTER) {
+                long assignmentCounter = 0;
+                for (long currentPosition = 0; currentPosition < _size; currentPosition++)
+                {
+                    assignmentCounter += 3;
+                    long smallestPosition = currentPosition;
+                    T smallestElement = _first[smallestPosition];
+                    for (long j = currentPosition + 1; j < _size; j++)
+                        if (_first[j] < smallestElement)
+                            assignmentCounter += 2;
+
+                    assignmentCounter += 2;
+                }
+                std::cout << "Count of assigments: " << assignmentCounter << '\n';
+            }
+            if (FeatureFlag::CONDITION_COUNTER) {
+                long conditionCounter = 0;
+                for (long currentPosition = 0; currentPosition < _size; currentPosition++)
+                {
+                    for (long j = currentPosition + 1; j < _size; j++)
+                        conditionCounter += 2;
+
+                    conditionCounter++;
+                }
+
+                std::cout << "Count of comparisons: " << conditionCounter << '\n';
+            }
+        }
+        if(FeatureFlag::TIMER) {
+            Timer::end();
+            std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms\n";
+        }
+
         return this;
     }
     template <class T>
     List<T>* List<T>::insertionSort()
     {
+        if(FeatureFlag::TIMER)
+            Timer::begin();
+
         for (long currentPosition = 1; currentPosition < _size; currentPosition++)
         {
             T currentElement = _first[currentPosition];
@@ -208,12 +383,53 @@ namespace DataStructure::Query::Sequential
             _first[replacePosition + 1] = currentElement;
         }
 
+        if(FeatureFlag::ASSIGNMENT_COUNTER || FeatureFlag::CONDITION_COUNTER) {
+            if (FeatureFlag::ASSIGNMENT_COUNTER) {
+                long assignmentCounter = 0;
+
+                for (long currentPosition = 1; currentPosition < _size; currentPosition++)
+                {
+                    assignmentCounter += 2; 
+                    T currentElement = _first[currentPosition];
+                    long replacePosition = currentPosition - 1;
+                    for (replacePosition; replacePosition >= 0 && currentElement <= _first[replacePosition]; replacePosition--)
+                        assignmentCounter++;
+
+                    assignmentCounter++;
+                }
+
+                std::cout << "Count of assigments: " << assignmentCounter << '\n';
+            }
+            if (FeatureFlag::CONDITION_COUNTER) {
+                long conditionCounter = 0;
+
+                for (long currentPosition = 1; currentPosition < _size; currentPosition++)
+                {
+                    T currentElement = _first[currentPosition];
+                    long replacePosition = currentPosition - 1;
+                    for (replacePosition; replacePosition >= 0 && currentElement <= _first[replacePosition]; replacePosition--)
+                        conditionCounter++;
+
+                    conditionCounter++;
+                }
+
+                std::cout << "Count of comparisons: " << conditionCounter << '\n';
+            }
+        }
+        if(FeatureFlag::TIMER) {
+            Timer::end();
+            std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms\n";
+        }
+
         return this;
     }
     template <class T>
     List<T>* List<T>::bubbleSort()
     {
-        for (long currentLoop = 0; currentLoop < _size; currentLoop++)
+        if (FeatureFlag::TIMER)
+            Timer::begin();
+
+        for (long currentLoop = 1; currentLoop < _size - 1; currentLoop++)
             for (long currentIndex = 0; currentIndex < _size - currentLoop; currentIndex++)
                 if (_first[currentIndex] > _first[currentIndex + 1])
                 {
@@ -221,10 +437,42 @@ namespace DataStructure::Query::Sequential
                     _first[currentIndex] = _first[currentIndex + 1];
                     _first[currentIndex + 1] = currentItem;
                 }
+
+        // if (FeatureFlag::ASSIGNMENT_COUNTER || FeatureFlag::CONDITION_COUNTER) {
+        //     if (FeatureFlag::ASSIGNMENT_COUNTER) {
+        //         long assignmentCounter = 0;
+
+        //         for (long currentLoop = 0; currentLoop < _size; currentLoop++)
+        //             for (long currentIndex = 0; currentIndex < _size - currentLoop; currentIndex++)
+        //                 if (_first[currentIndex] > _first[currentIndex + 1])
+        //                     assignmentCounter += 3;
+
+        //         std::cout << "Count of assigments: " << assignmentCounter << '\n';
+        //     }
+        //     if (FeatureFlag::CONDITION_COUNTER) {
+        //         long conditionCounter = 0;
+
+        //         for (long currentLoop = 0; currentLoop < _size; currentLoop++) {
+        //             for (long currentIndex = 0; currentIndex < _size - currentLoop; currentIndex++)
+        //                 conditionCounter += 2;
+        //             conditionCounter++;
+        //         }
+
+        //         std::cout << "Count of comparisons: " << conditionCounter << '\n';
+        //     }
+        // }
+
+        if (FeatureFlag::TIMER) {
+            Timer::end();
+            std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms\n";
+        }
     }
     template <class T>
     List<T>* List<T>::shellSort()
     {
+        if (FeatureFlag::TIMER)
+            Timer::begin();
+             
         // example
         //  0  1  2  3  4  5  6  7  8  9
         // 45 23 53 43 18 24 08 95 10 15
@@ -262,12 +510,55 @@ namespace DataStructure::Query::Sequential
                 _first[replacePosition] = currentItem;
             }
         }
+
+        if (FeatureFlag::ASSIGNMENT_COUNTER || FeatureFlag::CONDITION_COUNTER) {
+            if (FeatureFlag::ASSIGNMENT_COUNTER) {
+                long assignmentCounter = 0;
+
+                long initialGap = _size / 2;
+                for (long gap = initialGap; gap > 0; gap /= 2)
+                    for (long subListFirst = gap; subListFirst < _size; subListFirst++)
+                    {
+                        assignmentCounter++;
+                        T currentItem = _first[subListFirst];
+                        long replacePosition;
+                        for (replacePosition = subListFirst; replacePosition >= gap && _first[replacePosition - gap] > currentItem; replacePosition -= gap)
+                            assignmentCounter++;
+
+                        assignmentCounter++;
+                    }
+                std::cout << "Count of assigments: " << assignmentCounter << '\n';
+            }
+            if (FeatureFlag::CONDITION_COUNTER) {
+                long conditionCounter = 0;
+
+                for (long gap = initialGap; gap > 0; gap /= 2)
+                {
+                    for (long subListFirst = gap; subListFirst < _size; subListFirst++)
+                    {
+                        T currentItem = _first[subListFirst];
+                        long replacePosition;
+                        for (replacePosition = subListFirst; replacePosition >= gap && _first[replacePosition - gap] > currentItem; replacePosition -= gap)
+                            conditionCounter++;
+
+                        conditionCounter++;
+                    }
+                    conditionCounter++;
+                }
+
+                std::cout << "Count of comparisons: " << conditionCounter << '\n';
+            }
+        }
+        if (FeatureFlag::TIMER) {
+            Timer::end();
+            std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms\n";
+        }
     }
     template <class T>
     List<T>* List<T>::quickSort()
     {
         long low = 0;
-        long high = _size;
+        long high = _size - 1;
         quickSortRecursive(low, high);
     }
     template <class T>
@@ -294,6 +585,9 @@ namespace DataStructure::Query::Sequential
     template <class T>
     long List<T>::quickSortPartition(long start, long end)
     {
+        if(FeatureFlag::TIMER)
+            Timer::begin();
+
         T pivot = _first[start];
 
         long count = 0;
@@ -323,6 +617,11 @@ namespace DataStructure::Query::Sequential
                 incrementor++;
                 decrementor--;
             }
+        }
+
+        if (FeatureFlag::TIMER) {
+            Timer::end();
+            std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms\n";
         }
 
         return pivotIndex;
@@ -383,24 +682,24 @@ namespace DataStructure::Query::Sequential
     }
 
     template <class T>
-    ostream& operator<<(ostream& os, const List<T>& list)
+    ostream &operator<<(ostream &os, const List<T> &list)
     {
         if (list.size() < 1)
             return os << "Empty list.\n";
 
         os << "[" << list._first[0] << "]";
 
-        T* iterator = list._first;
+        T *iterator = list._first;
         for (unsigned int counter = 1;
-            counter < list.size();
-            counter++)
+             counter < list.size();
+             counter++)
             os << "\n[" << iterator[counter] << "]";
 
         return os;
     }
 
     template <class T>
-    List<T>& List<T>::operator=(const List<T>& source)
+    List<T> &List<T>::operator=(const List<T> &source)
     {
         if (this == &source)
             return *this;

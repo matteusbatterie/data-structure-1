@@ -31,8 +31,8 @@ namespace Management::File
 
     string FileReader::read(const string fileName)
     {
-        ifstream file;
-        stringstream buffer;
+        std::ifstream file;
+        std::stringstream buffer;
 
         file.open(PATH + fileName);
         buffer << file.rdbuf();
@@ -41,8 +41,8 @@ namespace Management::File
     }
 
     Array<string> FileReader::readAsArray(const string fileName) {
-        Array<string> array;
-        ifstream file;
+        Array<std::string> array;
+        std::ifstream file;
         file.open(PATH + fileName);
 
         if (file.is_open())
@@ -53,7 +53,7 @@ namespace Management::File
 
             file.close();
         }
-        else cout << "Unable to open file.\n";
+        else std::cout << "Unable to open file.\n";
 
         return array;
     }
@@ -61,11 +61,11 @@ namespace Management::File
     Sequential::List<Person> FileReader::readAsListSequential(const string fileName)
     {
         Sequential::List<Person> list = Sequential::List<Person>();
-        ifstream file;
+        std::ifstream file;
         file.open(PATH + fileName);
 
         if (!file.is_open()) {
-            cout << "Unable to open file.\n";
+            std::cout << "Unable to open file.\n";
             return list;
         }
 
@@ -93,11 +93,11 @@ namespace Management::File
 
     Linked::List<Person> FileReader::readAsListLinked(const string fileName) {
         Linked::List<Person> list = Linked::List<Person>();
-        ifstream file;
+        std::ifstream file;
         file.open(PATH + fileName);
 
         if (!file.is_open()) {
-            cout << "Unable to open file.\n";
+            std::cout << "Unable to open file.\n";
             return list;
         }
 
