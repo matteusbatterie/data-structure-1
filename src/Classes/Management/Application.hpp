@@ -485,8 +485,19 @@ namespace Management
                     break;
                 }
 
-                if (_menuManager->listOption() == "1")
-                    _listManager->sequential(_fileManager->readAsListSequential(loadedFile));
+                if (_menuManager->listOption() == "1") {
+                    long size = 0;
+                    if(loadedFile == NAME_AND_ID_100M.name + "." + NAME_AND_ID_100M.type) {
+                        Person* array = _fileManager->readAsListSequential(loadedFile, "100M", &size);
+                        _listManager->sequential(array, size);
+                    }
+                    else if(loadedFile == NAME_AND_ID_1M.name + "." + NAME_AND_ID_1M.type) {
+                        Person* array = _fileManager->readAsListSequential(loadedFile, "1M", &size);
+                        _listManager->sequential(array, size);
+                    }
+                    else 
+                        _listManager->sequential(_fileManager->readAsListSequential(loadedFile));
+                }
                 else if (_menuManager->listOption() == "2")
                     _listManager->linked(_fileManager->readAsListLinked(loadedFile));
             }

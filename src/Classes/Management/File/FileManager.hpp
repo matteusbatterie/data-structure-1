@@ -33,6 +33,7 @@ namespace Management::File
         string read(string fileName) { return _reader->read(fileName); }
         Array<string> readAsArray(string fileName) { return _reader->readAsArray(fileName); }
         Sequential::List<Person> readAsListSequential(string fileName) { return _reader->readAsListSequential(fileName); }
+        Person* readAsListSequential(string fileName, string fileSize, long* size) { return _reader->readAsListSequential(fileName, fileSize, size); }
         Linked::List<Person> readAsListLinked(string fileName) { return _reader->readAsListLinked(fileName); }
 
         void write(string fileName, string line) { _writer->write(fileName, line); }

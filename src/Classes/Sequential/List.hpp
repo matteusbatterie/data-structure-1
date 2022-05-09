@@ -28,6 +28,10 @@ namespace DataStructure::Query::Sequential
             std::copy(copy._first, copy._first + copy.size(), _first);
             _size = copy.size();
         }
+        List(T* array, long size) {
+            _first = array;
+            _size = size;
+        }
         List()
         {
             this->_first = new T[0];
@@ -585,9 +589,6 @@ namespace DataStructure::Query::Sequential
     template <class T>
     long List<T>::quickSortPartition(long start, long end)
     {
-        if(FeatureFlag::TIMER)
-            Timer::begin();
-
         T pivot = _first[start];
 
         long count = 0;
@@ -617,11 +618,6 @@ namespace DataStructure::Query::Sequential
                 incrementor++;
                 decrementor--;
             }
-        }
-
-        if (FeatureFlag::TIMER) {
-            Timer::end();
-            std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms\n";
         }
 
         return pivotIndex;
