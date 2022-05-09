@@ -12,13 +12,13 @@ namespace DataStructure::Query::Sequential
     class List
     {
     public:
-        T *_first;
+        T* _first;
 
     private:
         unsigned long _size;
 
     public:
-        List(const List<T> &copy)
+        List(const List<T>& copy)
         {
             _first = new T[copy.size()];
             std::copy(copy._first, copy._first + copy.size(), _first);
@@ -42,13 +42,15 @@ namespace DataStructure::Query::Sequential
         void pop();
         void remove(int position);
 
-        T &find(const T data) const;
+        T& find(const T data) const;
         void findAt(int position) const;
 
-        List<T> *selectionSort();
-        List<T> *insertionSort();
-        List<T> *shellSort();
-        List<T> *quickSort();
+        List<T>* selectionSort();
+        List<T>* insertionSort();
+        List<T>* bubbleSort();
+        List<T>* shellSort();
+        List<T>* quickSort();
+        List<T>* mergeSort();
 
         // temporary solution
         void print()
@@ -58,22 +60,25 @@ namespace DataStructure::Query::Sequential
         }
 
         template <class E>
-        friend ostream &operator<<(ostream &os, const List<E> &list);
-        List<T> &operator=(const List<T> &source);
+        friend ostream& operator<<(ostream& os, const List<E>& list);
+        List<T>& operator=(const List<T>& source);
 
     private:
-        List<T> *quickSortRecursive(long low, long high);
+        List<T>* quickSortRecursive(long low, long high);
         long quickSortPartition(long start, long end);
+
+        void mergeSortRecursive(long start, long end);
+        void mergeSortMerge(long start, long middle, long end);
     };
 
     template <class T>
     void List<T>::append(T data)
     {
-        T *newList = new T[++_size];
+        T* newList = new T[++_size];
 
         for (unsigned int index = 0;
-             index < _size - 1;
-             index++)
+            index < _size - 1;
+            index++)
         {
             newList[index] = _first[index];
         }
@@ -92,7 +97,7 @@ namespace DataStructure::Query::Sequential
             return;
         }
 
-        T *newList = new T[++_size];
+        T* newList = new T[++_size];
 
         for (int index = 0; index < position; index++)
             newList[index] = _first[index];
@@ -115,10 +120,10 @@ namespace DataStructure::Query::Sequential
             return;
         }
 
-        T *newList = new T[--_size];
+        T* newList = new T[--_size];
         for (int index = 0;
-             index < _size;
-             index++)
+            index < _size;
+            index++)
         {
             newList[index] = _first[index];
         }
@@ -142,7 +147,7 @@ namespace DataStructure::Query::Sequential
             return;
         }
 
-        T *newList = new T[--_size];
+        T* newList = new T[--_size];
         for (int index = 0; index < position; index++)
             newList[index] = _first[index];
 
@@ -154,7 +159,7 @@ namespace DataStructure::Query::Sequential
     }
 
     template <class T>
-    T &List<T>::find(const T data) const
+    T& List<T>::find(const T data) const
     {
         for (int index = 0; index < _size; index++)
             if (_first[index] == data)
@@ -162,7 +167,7 @@ namespace DataStructure::Query::Sequential
     }
 
     template <class T>
-    List<T> *List<T>::selectionSort()
+    List<T>* List<T>::selectionSort()
     {
         for (long currentPosition = 0; currentPosition < _size; currentPosition++)
         {
@@ -181,23 +186,35 @@ namespace DataStructure::Query::Sequential
         return this;
     }
     template <class T>
-    List<T> *List<T>::insertionSort()
+    List<T>* List<T>::insertionSort()
     {
         for (long currentPosition = 1; currentPosition < _size; currentPosition++)
         {
             T currentElement = _first[currentPosition];
-            long replacePosition = currentPosition -1;
+            long replacePosition = currentPosition - 1;
 
-            for (long j = replacePosition; j >= 0 && currentElement <= _first[j]; j--)
-                _first[replacePosition = j + 1] = _first[j];
+            for (replacePosition; replacePosition >= 0 && currentElement <= _first[replacePosition]; replacePosition--)
+                _first[replacePosition + 1] = _first[replacePosition];
 
-            _first[replacePosition] = currentElement;
+            _first[replacePosition + 1] = currentElement;
         }
 
         return this;
     }
     template <class T>
-    List<T> *List<T>::shellSort()
+    List<T>* List<T>::bubbleSort()
+    {
+        for (long currentLoop = 0; currentLoop < _size; currentLoop++)
+            for (long currentIndex = 0; currentIndex < _size - currentLoop; currentIndex++)
+                if (_first[currentIndex] > _first[currentIndex + 1])
+                {
+                    T currentItem = _first[currentIndex];
+                    _first[currentIndex] = _first[currentIndex + 1];
+                    _first[currentIndex + 1] = currentItem;
+                }
+    }
+    template <class T>
+    List<T>* List<T>::shellSort()
     {
         // example
         //  0  1  2  3  4  5  6  7  8  9
@@ -238,14 +255,24 @@ namespace DataStructure::Query::Sequential
         }
     }
     template <class T>
-    List<T> *List<T>::quickSort()
+    List<T>* List<T>::quickSort()
     {
         long low = 0;
         long high = _size;
         quickSortRecursive(low, high);
     }
     template <class T>
-    List<T> *List<T>::quickSortRecursive(long low, long high)
+    List<T>* List<T>::mergeSort()
+    {
+        if (_size < 1) return nullptr;
+
+        mergeSortRecursive(0, _size - 1);
+
+        return this;
+    }
+
+    template <class T>
+    List<T>* List<T>::quickSortRecursive(long low, long high)
     {
         if (low >= high)
             return this;
@@ -293,24 +320,78 @@ namespace DataStructure::Query::Sequential
     }
 
     template <class T>
-    ostream &operator<<(ostream &os, const List<T> &list)
+    void List<T>::mergeSortRecursive(long start, long end)
+    {
+        if (start >= end) return;
+
+        long middle = start + (end - start) / 2;
+        mergeSortRecursive(start, middle);
+        mergeSortRecursive(middle + 1, end);
+        mergeSortMerge(start, middle, end);
+    }
+    template <class T>
+    void List<T>::mergeSortMerge(long start, long middle, long end)
+    {
+        long leftArraySize = middle - start + 1;
+        long rightArraySize = end - middle;
+        T* leftArray = new T[leftArraySize];
+        T* rightArray = new T[rightArraySize];
+
+        // Copying left data to left array (begin : middle - start + 1)
+        for (long index = 0; index < leftArraySize; index++)
+            leftArray[index] = _first[start + index];
+        // Copying right data to right array (middle + 1 : end)
+        for (long index = 0; index < rightArraySize; index++)
+            rightArray[index] = _first[middle + 1 + index];
+
+        long indexLeftArray = 0;
+        long indexRightArray = 0;
+        long indexMergedArray = start;
+        // Merging left and right arrays into original array
+        while (indexLeftArray < leftArraySize && indexRightArray < rightArraySize)
+        {
+            if (rightArray[indexRightArray] > leftArray[indexLeftArray])
+                _first[indexMergedArray] = leftArray[indexLeftArray++];
+            else
+                _first[indexMergedArray] = rightArray[indexRightArray++];
+
+            indexMergedArray++;
+        }
+
+        // Copying remaining elements, if any, from left array
+        while (indexLeftArray < leftArraySize) {
+            _first[indexMergedArray] = leftArray[indexLeftArray++];
+            indexMergedArray++;
+        }
+        // Copying remaining elements, if any, from right array
+        while (indexRightArray < rightArraySize) {
+            _first[indexMergedArray] = rightArray[indexRightArray++];
+            indexMergedArray++;
+        }
+
+        delete[] leftArray;
+        delete[] rightArray;
+    }
+
+    template <class T>
+    ostream& operator<<(ostream& os, const List<T>& list)
     {
         if (list.size() < 1)
             return os << "Empty list.\n";
 
         os << "[" << list._first[0] << "]";
 
-        T *iterator = list._first;
+        T* iterator = list._first;
         for (unsigned int counter = 1;
-             counter < list.size();
-             counter++)
+            counter < list.size();
+            counter++)
             os << "\n[" << iterator[counter] << "]";
 
         return os;
     }
 
     template <class T>
-    List<T> &List<T>::operator=(const List<T> &source)
+    List<T>& List<T>::operator=(const List<T>& source)
     {
         if (this == &source)
             return *this;

@@ -323,16 +323,14 @@ namespace Management
                 case '1':
                     _menuManager->sortMenuOption("1");
                     selectionSort();
-                    // 
                     break;
                 case '2':
                     _menuManager->sortMenuOption("2");
                     insertionSort();
-                    //
                     break;
                 case '3':
                     _menuManager->sortMenuOption("3");
-                    //bubbleSort();
+                    bubbleSort();
                     break;
                 case '4':
                     _menuManager->sortMenuOption("4");
@@ -344,7 +342,7 @@ namespace Management
                     break;
                 case '6':
                     _menuManager->sortMenuOption("6");
-                    //mergeSort();
+                    mergeSort();
                     break;
                 case '0':
                     _menuManager->sortMenuOption("0");
@@ -358,28 +356,40 @@ namespace Management
         }
 
         void selectionSort() {
-            if(_menuManager->listOption() == "1") 
+            if (_menuManager->listOption() == "1")
                 _listManager->sequential()->selectionSort();
-            else if(_menuManager->listOption() == "2")
-                _listManager->linked()->selectionSort();
+            // else if (_menuManager->listOption() == "2")
+            //     _listManager->linked()->selectionSort();
         }
         void insertionSort() {
-            if(_menuManager->listOption() == "1") 
+            if (_menuManager->listOption() == "1")
                 _listManager->sequential()->insertionSort();
-            else if(_menuManager->listOption() == "2")
-                _listManager->linked()->insertionSort();
+            // else if (_menuManager->listOption() == "2")
+            //     _listManager->linked()->insertionSort();
+        }
+        void bubbleSort() {
+            if (_menuManager->listOption() == "1")
+                _listManager->sequential()->bubbleSort();
+            // else if(_menuManager->listOption() == "2")
+            //     _listManager->linked()->bubbleSort();
         }
         void shellSort() {
-            if(_menuManager->listOption() == "1") 
+            if (_menuManager->listOption() == "1")
                 _listManager->sequential()->shellSort();
             // else if(_menuManager->listOption() == "2")
                 //_listManager->linked()->shellSort();
         }
         void quickSort() {
-            if(_menuManager->listOption() == "1") 
+            if (_menuManager->listOption() == "1")
                 _listManager->sequential()->quickSort();
             // else if(_menuManager->listOption() == "2")
                 //_listManager->linked()->quickSort();
+        }
+        void mergeSort() {
+            if (_menuManager->listOption() == "1")
+                _listManager->sequential()->mergeSort();
+            // else if(_menuManager->listOption() == "2")
+                //_listManager->linked()->mergeSort();
         }
 
         void search() {
