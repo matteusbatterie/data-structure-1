@@ -392,7 +392,7 @@ namespace Management
             Person result;
 
             if (_menuManager->listOption() == "1")
-                result = _listManager->sequential()->find(Person(personId));
+                _listManager->sequential()->findAndPrint(Person(personId));
 
             else if (_menuManager->listOption() == "2")
                 result = _listManager->linked()->find(Person(personId));

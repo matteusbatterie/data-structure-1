@@ -44,6 +44,7 @@ namespace DataStructure::Query::Sequential
 
         T &find(const T data) const;
         void findAt(int position) const;
+        void findAndPrint(const T data) const;
 
         List<T> *selectionSort();
         List<T> *insertionSort();
@@ -156,14 +157,22 @@ namespace DataStructure::Query::Sequential
     template <class T>
     T &List<T>::find(const T data) const
     {
-        for (int index = 0; index < _size; index++)
+        for (long index = 0; index < _size; index++)
             if (_first[index] == data)
                 return _first[index];
+    }
+    template <class T>
+    void List<T>::findAndPrint(const T data) const
+    {
+        for (long index = 0; index < _size; index++)
+                if (_first[index] == data)
+                    std::cout << index + 1 << ") " << _first[index] << '\n';
     }
 
     template <class T>
     List<T> *List<T>::selectionSort()
     {
+        
         for (long currentPosition = 0; currentPosition < _size; currentPosition++)
         {
             T currentElement = _first[currentPosition];
