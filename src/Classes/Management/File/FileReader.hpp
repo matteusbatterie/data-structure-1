@@ -26,6 +26,7 @@ namespace Management::File
         string read(const string fileName);
         Array<string> readAsArray(const string fileName);
         Sequential::List<Person> readAsListSequential(const string fileName);
+        Person* readAsListSequential(const string fileName, const string fileSize, long* size);
         Linked::List<Person> readAsListLinked(const string fileName);
     };
 
@@ -85,6 +86,41 @@ namespace Management::File
                 personName
             };
             list.append(person);
+        }
+
+        file.close();
+        return list;
+    }
+    Person* FileReader::readAsListSequential(const string fileName, const string fileSize, long* size)
+    {
+        *size = fileSize == "100M" ? 11748443 : 1000000;
+        Person* list = new Person[*size];
+        std::ifstream file;
+        file.open(PATH + fileName);
+
+        if (!file.is_open()) {
+            std::cout << "Unable to open file.\n";
+            return list;
+        }
+
+        long i = 0;
+        while (file.good() && !file.eof())
+        {
+            string personName;
+            string personIdStr;
+
+            getline(file, personName, ',');
+            getline(file, personIdStr);
+
+            if (file.eof())
+                break;
+
+            Person person = Person{
+                stoul(personIdStr, nullptr, 0),
+                personName
+            };
+            list[i] = (person);
+            i++;
         }
 
         file.close();

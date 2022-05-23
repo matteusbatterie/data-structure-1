@@ -45,6 +45,9 @@ namespace DataStructure::Query::Linked
         T &find(const T data);
         void findAt(int position);
 
+        List<T>* selectionSort();
+        List<T>* insertionSort();
+
         void print()
         {
             for (Node<T> *iterator = _first; iterator != &_last->next(); iterator = &(iterator->next()))
@@ -313,6 +316,7 @@ namespace DataStructure::Query::Linked
             return;
         }
 
+
         if (position == _size)
         {
             this->pop();
@@ -404,7 +408,29 @@ namespace DataStructure::Query::Linked
     }
 
     template <class T>
-    ostream &operator<<(ostream &os, const List<T> &list)
+    List<T>* List<T>::selectionSort()
+    {
+
+    }
+    template <class T>
+    List<T>* List<T>::insertionSort()
+    {
+        std::cout << "To be implemented.\n";
+        // for (Node<T>* it = &_first->next(); it != &_last->next(); it++)
+        // {
+        //     Node<T>* currentElement = it;
+
+        //     Node<T>* it2 = it;
+        //     while(it2 != _first && *it2 <= it2->previous()) it2--;
+
+            
+        // }
+        return this;
+    }
+
+
+    template <class T>
+    ostream& operator<<(ostream& os, const List<T>& list)
     {
         if (list.size() < 1)
             return os << "Empty list.\n";

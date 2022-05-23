@@ -48,5 +48,17 @@ namespace Entities
         bool operator==(const Person& comparison) {
             return this->id() == comparison.id();
         }
+        bool operator<(const Person& comparison) {
+            return this->id() < comparison.id();
+        }
+        bool operator<=(const Person& comparison) {
+            return this->id() <= comparison.id();
+        }
+        bool operator>(const Person& comparison) {
+            return this->id() > comparison.id();
+        }
+        bool operator>=(const Person& comparison) {
+            return this->id() >= comparison.id();
+        } 
     };
 }

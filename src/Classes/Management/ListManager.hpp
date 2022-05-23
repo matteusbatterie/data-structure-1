@@ -26,6 +26,7 @@ namespace Management
 
         Sequential::List<Person>* sequential() const { return _sequentialList; }
         void sequential(const Sequential::List<Person> list) { _sequentialList = new Sequential::List<Person>(list); }
+        void sequential(Person* array, long size) { _sequentialList = new Sequential::List<Person>(array, size); }
 
         Linked::List<Person>* linked() const { return _linkedList; }
         void linked(const Linked::List<Person> list) { _linkedList = new Linked::List<Person>(list); }
