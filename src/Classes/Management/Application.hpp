@@ -104,7 +104,7 @@ namespace Management
                     break;
                 case '4':
                     _menuManager->mainMenuOption("4");
-                    search();
+                    searchMenu();
                     break;
                 case '5':
                     _menuManager->mainMenuOption("5");
@@ -144,14 +144,17 @@ namespace Management
                 case '1':
                     _menuManager->insertMenuOption("1");
                     insertBegin();
+                    _listManager->sorted(false);
                     break;
                 case '2':
                     _menuManager->insertMenuOption("2");
                     insertEnd();
+                    _listManager->sorted(false);
                     break;
                 case '3':
                     _menuManager->insertMenuOption("3");
                     insertPosition();
+                    _listManager->sorted(false);
                     break;
                 case '0':
                     _menuManager->insertMenuOption("0");
@@ -197,6 +200,93 @@ namespace Management
                 }
             }
             _menuManager->removeMenuOption("");
+        }
+        void sortMenu() {
+            while (_menuManager->sortMenuOption() != "0")
+            {
+                std::cout << "1 - Selection Sort\n";
+                std::cout << "2 - Insertion Sort\n";
+                std::cout << "3 - Bubble Sort\n";
+                std::cout << "4 - Shell Sort\n";
+                std::cout << "5 - Quick Sort\n";
+                std::cout << "6 - Merge Sort\n";
+                std::cout << "0 - Quit\n";
+
+                char option = getchar();
+                clearBuffer();
+                switch (option)
+                {
+                case '1':
+                    _menuManager->sortMenuOption("1");
+                    selectionSort();
+                    _listManager->sorted(true);
+                    break;
+                case '2':
+                    _menuManager->sortMenuOption("2");
+                    insertionSort();
+                    _listManager->sorted(true);
+                    break;
+                case '3':
+                    _menuManager->sortMenuOption("3");
+                    bubbleSort();
+                    _listManager->sorted(true);
+                    break;
+                case '4':
+                    _menuManager->sortMenuOption("4");
+                    shellSort();
+                    _listManager->sorted(true);
+                    break;
+                case '5':
+                    _menuManager->sortMenuOption("5");
+                    quickSort();
+                    _listManager->sorted(true);
+                    break;
+                case '6':
+                    _menuManager->sortMenuOption("6");
+                    mergeSort();
+                    _listManager->sorted(true);
+                    break;
+                case '0':
+                    _menuManager->sortMenuOption("0");
+                    break;
+                default:
+                    std::cout << "Invalid option.\n";
+                    break;
+                }
+            }
+            _menuManager->sortMenuOption("");
+        }
+        void searchMenu() {
+            while (_menuManager->searchMenuOption() != "0")
+            {
+                std::cout << "1 - Regular Search\n";
+                if (_menuManager->listOption() == "1");
+                    std::cout << "2 - Binary Search (must sort beforehand)\n";
+                std::cout << "0 - Quit\n";
+                std::cout << ">> ";
+
+                char option = getchar();
+                clearBuffer();
+                switch (option)
+                {
+                case '1':
+                    _menuManager->searchMenuOption("1");
+                    search();
+                    break;
+                case '2':
+                    if (_menuManager->listOption() != "1") break;
+                    _menuManager->searchMenuOption("2");
+                    binarySearch();
+                    break;
+                case '0':
+                    _menuManager->searchMenuOption("0");
+                    break;
+                default:
+                    std::cout << "Invalid option.\n";
+                    break;
+                }
+            }
+            _menuManager->searchMenuOption("");
         }
 
         void insertBegin() {
@@ -305,56 +395,6 @@ namespace Management
                 _listManager->linked()->remove(position - 1);
         }
 
-        void sortMenu() {
-            while (_menuManager->sortMenuOption() != "0")
-            {
-                std::cout << "1 - Selection Sort\n";
-                std::cout << "2 - Insertion Sort\n";
-                std::cout << "3 - Bubble Sort\n";
-                std::cout << "4 - Shell Sort\n";
-                std::cout << "5 - Quick Sort\n";
-                std::cout << "6 - Merge Sort\n";
-                std::cout << "0 - Quit\n";
-
-                char option = getchar();
-                clearBuffer();
-                switch (option)
-                {
-                case '1':
-                    _menuManager->sortMenuOption("1");
-                    selectionSort();
-                    break;
-                case '2':
-                    _menuManager->sortMenuOption("2");
-                    insertionSort();
-                    break;
-                case '3':
-                    _menuManager->sortMenuOption("3");
-                    bubbleSort();
-                    break;
-                case '4':
-                    _menuManager->sortMenuOption("4");
-                    shellSort();
-                    break;
-                case '5':
-                    _menuManager->sortMenuOption("5");
-                    quickSort();
-                    break;
-                case '6':
-                    _menuManager->sortMenuOption("6");
-                    mergeSort();
-                    break;
-                case '0':
-                    _menuManager->sortMenuOption("0");
-                    break;
-                default:
-                    std::cout << "Invalid option.\n";
-                    break;
-                }
-            }
-            _menuManager->sortMenuOption("");
-        }
-
         void selectionSort() {
             if (_menuManager->listOption() == "1")
                 _listManager->sequential()->selectionSort();
@@ -374,20 +414,29 @@ namespace Management
             //     _listManager->linked()->bubbleSort();
         }
         void shellSort() {
+            Timer::begin();
             if (_menuManager->listOption() == "1")
                 _listManager->sequential()->shellSort();
+            Timer::end();
+            std::cout << "Elapsed time: " << Timer::elapsedTime() << '\n';
             // else if(_menuManager->listOption() == "2")
                 //_listManager->linked()->shellSort();
         }
         void quickSort() {
+            Timer::begin();
             if (_menuManager->listOption() == "1")
                 _listManager->sequential()->quickSort();
+            Timer::end();
+            std::cout << "Elapsed time: " << Timer::elapsedTime() << '\n';
             // else if(_menuManager->listOption() == "2")
                 //_listManager->linked()->quickSort();
         }
         void mergeSort() {
+            Timer::begin();
             if (_menuManager->listOption() == "1")
                 _listManager->sequential()->mergeSort();
+            Timer::end();
+            std::cout << "Elapsed time: " << Timer::elapsedTime() << '\n';
             // else if(_menuManager->listOption() == "2")
                 //_listManager->linked()->mergeSort();
         }
@@ -399,16 +448,32 @@ namespace Management
             std::cout << ">> ";
             std::cin >> personId;
 
-            Person result;
-
-            if (_menuManager->listOption() == "1")
+            if (_menuManager->listOption() == "1") {
                 _listManager->sequential()->findAndPrint(Person(personId));
+                return;
+            }
 
-            else if (_menuManager->listOption() == "2")
+            Person result;
+            if (_menuManager->listOption() == "2")
                 result = _listManager->linked()->find(Person(personId));
 
             if (result.id() != 0)
                 std::cout << result << '\n';
+        }
+        void binarySearch() {
+            if (!_listManager->sorted()) {
+                std::cout << "You must sort the list beforehand.\n";
+                return;
+            }
+
+            int personId;
+
+            std::cout << "Enter the person's ID:\n";
+            std::cout << ">> ";
+            std::cin >> personId;
+
+            Person result;
+            _listManager->sequential()->binarySearch(Person(personId));
         }
 
         void display() {

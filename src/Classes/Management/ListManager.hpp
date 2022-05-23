@@ -14,10 +14,13 @@ namespace Management
         Sequential::List<Person>* _sequentialList;
         Linked::List<Person>* _linkedList;
 
+        bool _sorted;
+
     public:
         ListManager() {
             this->_sequentialList = new Sequential::List<Person>();
             this->_linkedList = new Linked::List<Person>();
+            this->_sorted = false;
         }
         ~ListManager() {
             if(_sequentialList) delete _sequentialList;
@@ -30,5 +33,8 @@ namespace Management
 
         Linked::List<Person>* linked() const { return _linkedList; }
         void linked(const Linked::List<Person> list) { _linkedList = new Linked::List<Person>(list); }
+
+        bool sorted() const { return _sorted; }
+        void sorted(const bool sorted) { _sorted = sorted; }
     };
 }

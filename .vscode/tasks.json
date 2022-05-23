@@ -28,7 +28,8 @@
                 "${workspaceFolder}/src/_main.cpp",
                 "-o", 
                 "${workspaceFolder}/src/_main",
-                "-std=c++1z"
+                "-std=c++1z",
+                "-fpermissive"
             ],
             "options": {
                 "cwd": "/usr/bin"

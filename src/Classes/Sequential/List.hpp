@@ -53,6 +53,7 @@ namespace DataStructure::Query::Sequential
         T& find(const T data) const;
         void findAt(int position) const;
         void findAndPrint(const T data) const;
+        T& binarySearch(const T data) const;
 
         List<T>* selectionSort();
         List<T>* insertionSort();
@@ -74,12 +75,13 @@ namespace DataStructure::Query::Sequential
         List<T>& operator=(const List<T>& source);
 
     private:
+        T* binarySearchRecursive(const T data, long left, long right);
+
         List<T>* quickSortRecursive(long low, long high);
         long quickSortPartition(long start, long end);
 
         void mergeSortRecursive(long start, long end);
         void mergeSortMerge(long start, long middle, long end);
-
     };
 
     template <class T>
@@ -312,6 +314,36 @@ namespace DataStructure::Query::Sequential
         for (long index = 0; index < _size; index++)
                 if (_first[index] == data)
                     std::cout << index + 1 << ") " << _first[index] << '\n';
+    }
+    template <class T>
+    T& List<T>::binarySearch(const T data) const 
+    {
+        long left = 0;
+        long right = _size;
+        T* pointer = binarySearchRecursive(data, left, right);
+
+        if (pointer != nullptr) {
+            std::cout << *pointer << '\n';
+        } 
+    }
+    template <class T>
+    T* List<T>::binarySearchRecursive(const T data, long left, long right)
+    {
+        if (right < left)
+            return nullptr;
+
+        long mid = left + (right - left) / 2;
+
+        if(_first[mid] == data) {
+            std::cout << "Position: " << mid + 1 << '\n';
+            return &_first[mid];
+        }
+
+        if (_first[mid] < data)
+            return binarySearchRecursive(data, mid + 1, right);
+
+        if (_first[mid] > data)
+            return binarySearchRecursive(data, left, mid - 1);
     }
 
     template <class T>
@@ -589,7 +621,7 @@ namespace DataStructure::Query::Sequential
     template <class T>
     long List<T>::quickSortPartition(long start, long end)
     {
-        T pivot = _first[start];
+        T pivot = _first[(start + end) / 2];
 
         long count = 0;
         for (int i = start + 1; i <= end; i++)

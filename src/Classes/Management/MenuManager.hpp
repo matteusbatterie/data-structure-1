@@ -22,6 +22,7 @@ namespace Management
         string _insertMenuOption;
         string _removeMenuOption;
         string _sortMenuOption;
+        string _searchMenuOption;
         string _loadMenuOption;
 
         string _selectedOption;
@@ -37,6 +38,7 @@ namespace Management
             this->_insertMenuOption = "";
             this->_removeMenuOption = "";
             this->_sortMenuOption = "";
+            this->_searchMenuOption = "";
             this->_loadMenuOption = "";
         }
         ~MenuManager() {
@@ -59,5 +61,8 @@ namespace Management
 
         string sortMenuOption() const { return _sortMenuOption; }
         void sortMenuOption(const string option) { _sortMenuOption = option; }
+
+        string searchMenuOption() const { return _searchMenuOption; }
+        void searchMenuOption(const string option) { _searchMenuOption = option; }
     };
 }

@@ -59,7 +59,7 @@ namespace DataStructure::Query::Linked
 
         template <class E>
         friend std::ostream &operator<<(ostream &os, const List<E> &list);
-        List<T> &operator=(const List<T> &source);
+        List<T> &operator=(const List<T> &source);  
     };
 
     template <class T>
