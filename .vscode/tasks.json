@@ -40,6 +40,25 @@
         },
         {
             "type": "shell",
+            "label": "[WIN] g++ build active file",
+            "command": "E:/mingw32/bin/g++",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "-std=c++1z"
+            ],
+            "options": {
+                "cwd": "E:/mingw32/bin",
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
+        },
+        {
+            "type": "shell",
             "label": "[WIN] g++ build _main file",
             "command": "E:/mingw32/bin/g++",
             "args": [

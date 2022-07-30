@@ -21,4 +21,9 @@ namespace Constants
         const File NAME_AND_ID_1M = { "NomeRG1M", "txt" };
         const File NAME_AND_ID_100M = { "NomeRG100M", "txt" };
     }
+
+    namespace ApplicationCommands
+    {
+        const string INSERT_AT_BEGIN = "insert_at_begin";
+    }
 }
