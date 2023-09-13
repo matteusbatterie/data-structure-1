@@ -3,13 +3,13 @@
 #include "FileReader.hpp"
 #include "FileWriter.hpp"
 #include "../../Standard/Array.hpp"
-#include "../../Sequential/List.hpp"
-#include "../../Linked/List.hpp"
+#include "../../DataStructures/Lists/Sequential/List.hpp"
+#include "../../DataStructures/Lists/Linked/List.hpp"
 #include "../../Entities/Person.hpp"
 
 using std::string;
 using namespace Standard::Query;
-using namespace DataStructure::Query;
+using namespace DataStructure::Lists;
 using namespace Entities;
 
 namespace Management::File

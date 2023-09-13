@@ -1,12 +1,12 @@
 #pragma once
 #include <iostream>
 #include "../Standard/KeyValuePair.hpp"
-#include "../Graphic/Menu/MainMenu.hpp"
-#include "../Graphic/Menu/InsertMenu.hpp"
-#include "../Graphic/Menu/RemoveMenu.hpp"
+#include "../UserInterface/Menu/MainMenu.hpp"
+#include "../UserInterface/Menu/InsertMenu.hpp"
+#include "../UserInterface/Menu/RemoveMenu.hpp"
 
 using namespace Standard;
-using namespace Graphic::Menu;
+using namespace UserInterface::Menu;
 
 namespace Management
 {

@@ -1,9 +1,9 @@
 #pragma once
-#include "../Linked/List.hpp"
-#include "../Sequential/List.hpp"
+#include "../DataStructures/Lists/Linked/List.hpp"
+#include "../DataStructures/Lists/Sequential/List.hpp"
 #include "../Entities/Person.hpp"
 
-using namespace DataStructure::Query;
+using namespace DataStructure::Lists;
 using namespace Entities;
 
 namespace Management
