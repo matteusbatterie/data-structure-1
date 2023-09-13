@@ -23,7 +23,7 @@ namespace Management::File
             else std::cout << "Unable to open file\n";
         }
         void write(string fileName, Sequential::List<Person> list) {
-            for (int index = 0; index < list.size(); index++)
+            for (unsigned index = 0; index < list.size(); index++)
             {
                 string line = list._first[index].id() + ", " + list._first[index].name();
                 write(fileName, line);
