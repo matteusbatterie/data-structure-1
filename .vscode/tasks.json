@@ -41,7 +41,7 @@
         {
             "type": "shell",
             "label": "[WIN] g++ build active file",
-            "command": "E:/mingw32/bin/g++",
+            "command": "${env:MINGW32}/bin/g++",
             "args": [
                 "-g",
                 "${file}",
@@ -50,7 +50,7 @@
                 "-std=c++1z"
             ],
             "options": {
-                "cwd": "E:/mingw32/bin",
+                "cwd": "${env:MINGW32}/bin",
             },
             "problemMatcher": [
                 "$gcc"
@@ -60,7 +60,7 @@
         {
             "type": "shell",
             "label": "[WIN] g++ build _main file",
-            "command": "E:/mingw32/bin/g++",
+            "command": "${env:MINGW32}/bin/g++",
             "args": [
                 "-g", 
                 "${workspaceFolder}/src/_main.cpp",
@@ -69,7 +69,7 @@
                 "-std=c++1z"
             ],
             "options": {
-                "cwd": "E:/mingw32/bin"
+                "cwd": "${env:MINGW32}/bin"
             },
             "problemMatcher": [
                 "$gcc"

@@ -17,7 +17,7 @@
                 "${workspaceFolder}/**"
             ],
             "defines": [],
-            "compilerPath": "E:/mingw32/bin/gcc",
+            "compilerPath": "${env:MINGW32}/bin/gcc",
             "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "clang-x64"

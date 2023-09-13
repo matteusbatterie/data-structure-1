@@ -55,7 +55,7 @@
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
-            "externalConsole": false,
+            "externalConsole": true,
             "MIMode": "gdb",
             "setupCommands": [
                 {
@@ -65,7 +65,7 @@
                 }
             ],
             "preLaunchTask": "[WIN] g++ build _main file",
-            "miDebuggerPath": "E:/mingw32/bin/gdb.exe"
+            "miDebuggerPath": "${env:MINGW32}/bin/gdb.exe"
         }
     ]
 }
