@@ -8,6 +8,10 @@ namespace Management
 {
     using namespace File;
 
+
+    /**
+     * Singleton that represents the application that will be running
+    */
     class Application
     {
     private:
@@ -29,6 +33,7 @@ namespace Management
             if (_fileManager) delete _fileManager;
             if (_instance) delete _instance;
         }
+    
     public:
         Application(Application& other) = delete;
         static Application* instance() {
@@ -40,7 +45,22 @@ namespace Management
 
         void operator=(const Application& other) = delete;
 
+        void run() {
+            this->init();
+            this->terminate();
+        }
 
+    private:
+        void terminate() {
+            std::cout << "\n\n" << "Application terminated.\n";
+            pause();
+        }
+        void pause() {
+            std::cout << "\nPress any key to continue...\n";
+            fflush(stdin);
+            getchar();
+        }
+        
         void init() {
             _menuManager = new MenuManager();
             _listManager = new ListManager();
@@ -51,8 +71,8 @@ namespace Management
             {
                 std::cout << "1 - Sequential List\n";
                 std::cout << "2 - Linked List\n";
-                std::cout << ">> ";
-
+                
+                prompt();
                 char option = getchar();
                 clearBuffer();
                 switch (option)
@@ -69,6 +89,8 @@ namespace Management
                     std::cout << "Invalid option.\n";
                     break;
                 }
+
+                clearScreen();
             }
 
             mainMenu();
@@ -76,6 +98,7 @@ namespace Management
         void mainMenu() {
             while (_menuManager->mainMenuOption() != "0")
             {
+                clearScreen();
                 std::cout << "1 - Insert\n";
                 std::cout << "2 - Remove\n";
                 std::cout << "3 - Sort\n";
@@ -84,8 +107,8 @@ namespace Management
                 std::cout << "6 - Save\n";
                 std::cout << "7 - Load\n";
                 std::cout << "0 - Quit\n";
-                std::cout << ">> ";
-
+                
+                prompt();
                 char option = getchar();
                 clearBuffer();
                 switch (option)
@@ -125,6 +148,8 @@ namespace Management
                     std::cout << "Invalid option.\n";
                     break;
                 }
+
+                clearScreen();
             }
 
             _menuManager->mainMenuOption("");
@@ -132,13 +157,15 @@ namespace Management
         void insertMenu() {
             while (_menuManager->insertMenuOption() != "0")
             {
+                clearScreen();
                 std::cout << "1 - Insert at begin\n";
                 std::cout << "2 - Insert at end\n";
                 std::cout << "3 - Insert at position\n";
                 std::cout << "0 - Quit\n";
-                std::cout << ">> ";
-
+                
+                prompt();
                 char option = getchar();
+                clearBuffer();
                 switch (option)
                 {
                 case '1':
@@ -160,6 +187,8 @@ namespace Management
                     std::cout << "Invalid option.\n";
                     break;
                 }
+
+                clearScreen();
             }
 
             _menuManager->insertMenuOption("");
@@ -167,12 +196,13 @@ namespace Management
         void removeMenu() {
             while (_menuManager->removeMenuOption() != "0")
             {
+                clearScreen();
                 std::cout << "1 - Remove from begin\n";
                 std::cout << "2 - Remove from end\n";
                 std::cout << "3 - Remove from position\n";
                 std::cout << "0 - Quit\n";
-                std::cout << ">> ";
 
+                prompt();
                 char option = getchar();
                 clearBuffer();
                 switch (option)
@@ -195,6 +225,8 @@ namespace Management
                     std::cout << "Invalid option.\n";
                     break;
                 }
+
+                clearScreen();
             }
             _menuManager->removeMenuOption("");
         }
@@ -206,9 +238,12 @@ namespace Management
             std::cout << "Enter the person name:\n";
             std::cout << ">> ";
             std::cin >> personName;
+            clearBuffer();
+
             std::cout << "Enter the person ID:\n";
             std::cout << ">> ";
             std::cin >> personId;
+            clearBuffer();
 
             Person person = Person(personId, personName);
 
@@ -225,9 +260,12 @@ namespace Management
             std::cout << "Enter the person name:\n";
             std::cout << ">> ";
             std::cin >> personName;
+            clearBuffer();
+
             std::cout << "Enter the person ID:\n";
             std::cout << ">> ";
             std::cin >> personId;
+            clearBuffer();
 
             Person person = Person(personId, personName);
 
@@ -251,18 +289,18 @@ namespace Management
 
             std::cout << "Enter the person name:\n";
             std::cout << ">> ";
-            clearBuffer();
             std::cin >> personName;
+            clearBuffer();
 
             std::cout << "Enter the person ID:\n";
             std::cout << ">> ";
-            clearBuffer();
             std::cin >> personId;
+            clearBuffer();
 
             std::cout << "Enter the position (1 - " << maxSize << "):\n";
             std::cout << ">> ";
-            clearBuffer();
             std::cin >> position;
+            clearBuffer();
 
             Person person = Person(personId, personName);
 
@@ -297,6 +335,7 @@ namespace Management
             std::cout << "Enter the position (1 - " << maxSize << "):\n";
             std::cout << ">> ";
             std::cin >> position;
+            clearBuffer();
 
             if (_menuManager->listOption() == "1")
                 _listManager->sequential()->remove(position - 1);
@@ -358,38 +397,38 @@ namespace Management
         void selectionSort() {
             if (_menuManager->listOption() == "1")
                 _listManager->sequential()->selectionSort();
-            // else if (_menuManager->listOption() == "2")
-            //     _listManager->linked()->selectionSort();
+            else if (_menuManager->listOption() == "2")
+                _listManager->linked()->selectionSort();
         }
         void insertionSort() {
             if (_menuManager->listOption() == "1")
                 _listManager->sequential()->insertionSort();
-            // else if (_menuManager->listOption() == "2")
-            //     _listManager->linked()->insertionSort();
+            else if (_menuManager->listOption() == "2")
+                _listManager->linked()->insertionSort();
         }
         void bubbleSort() {
             if (_menuManager->listOption() == "1")
                 _listManager->sequential()->bubbleSort();
-            // else if(_menuManager->listOption() == "2")
-            //     _listManager->linked()->bubbleSort();
+            else if (_menuManager->listOption() == "2")
+                _listManager->linked()->bubbleSort();
         }
         void shellSort() {
             if (_menuManager->listOption() == "1")
                 _listManager->sequential()->shellSort();
-            // else if(_menuManager->listOption() == "2")
-                //_listManager->linked()->shellSort();
+            else if (_menuManager->listOption() == "2")
+                _listManager->linked()->shellSort();
         }
         void quickSort() {
             if (_menuManager->listOption() == "1")
                 _listManager->sequential()->quickSort();
-            // else if(_menuManager->listOption() == "2")
-                //_listManager->linked()->quickSort();
+            else if (_menuManager->listOption() == "2")
+                _listManager->linked()->quickSort();
         }
         void mergeSort() {
             if (_menuManager->listOption() == "1")
                 _listManager->sequential()->mergeSort();
-            // else if(_menuManager->listOption() == "2")
-                //_listManager->linked()->mergeSort();
+            else if (_menuManager->listOption() == "2")
+                _listManager->linked()->mergeSort();
         }
 
         void search() {
@@ -398,6 +437,7 @@ namespace Management
             std::cout << "Enter the person's ID:\n";
             std::cout << ">> ";
             std::cin >> personId;
+            clearBuffer();
 
             Person result;
 
@@ -417,6 +457,8 @@ namespace Management
 
             else if (_menuManager->listOption() == "2")
                 _listManager->linked()->print();
+
+            pause();
         }
 
         void save() {
@@ -424,6 +466,7 @@ namespace Management
             std::cout << "Enter the file name:\n";
             std::cout << ">> ";
             std::cin >> fileName;
+            clearBuffer();
 
             if (_menuManager->listOption() == "1")
                 _fileManager->write(fileName, *(_listManager->sequential()));
@@ -487,15 +530,15 @@ namespace Management
 
                 if (_menuManager->listOption() == "1") {
                     long size = 0;
-                    if(loadedFile == NAME_AND_ID_100M.name + "." + NAME_AND_ID_100M.type) {
+                    if (loadedFile == NAME_AND_ID_100M.name + "." + NAME_AND_ID_100M.type) {
                         Person* array = _fileManager->readAsListSequential(loadedFile, "100M", &size);
                         _listManager->sequential(array, size);
                     }
-                    else if(loadedFile == NAME_AND_ID_1M.name + "." + NAME_AND_ID_1M.type) {
+                    else if (loadedFile == NAME_AND_ID_1M.name + "." + NAME_AND_ID_1M.type) {
                         Person* array = _fileManager->readAsListSequential(loadedFile, "1M", &size);
                         _listManager->sequential(array, size);
                     }
-                    else 
+                    else
                         _listManager->sequential(_fileManager->readAsListSequential(loadedFile));
                 }
                 else if (_menuManager->listOption() == "2")
@@ -505,14 +548,28 @@ namespace Management
 
         }
 
+        void prompt();
         void clearBuffer();
+        void clearScreen();
     };
 
     Application* Application::_instance = nullptr;
 
+    void Application::prompt() {
+        std::cout << "\n>> ";
+    }
     void Application::clearBuffer()
     {
         int c;
         while ((c = getchar()) != '\n' && c != EOF) {}
+    }
+    void Application::clearScreen()
+    {
+#ifdef _WIN32
+        std::system("cls");
+#else
+        // Assume POSIX
+        std::system("clear");
+#endif
     }
 }

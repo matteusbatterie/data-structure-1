@@ -2,7 +2,7 @@
 
 int main()
 {
-    Main* main = Main::instance();
+    Program::Main* main = Program::Main::instance();
     main->run();
     return 0;
 }

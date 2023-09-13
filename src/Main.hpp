@@ -8,63 +8,43 @@ using namespace Management::File;
 using namespace Constants;
 using namespace Management;
 
-// Represents an object for the main class of the application.
-class Main
+namespace Program
 {
-private:
-    static Main* _instance;
-    Application* _application;
+    /**
+     * Singleton that represents the main class of the program, can be initialized using the static method "instance()"
+    */
+    class Main
+    {
+    private:
+        static Main* _instance;
+        Application* _application;
 
-private:
-    Main() {
-        this->_application = Application::instance();
-    }
-    ~Main() {
-        if (_instance) delete _instance;
-    }
-
-public:
-    Main(Main& other) = delete;
-    static Main* instance() {
-        if (_instance == nullptr) {
-            _instance = new Main();
+    private:
+        Main() {
+            this->_application = Application::instance();
         }
-        return _instance;
-    }
+        ~Main() {
+            if (_instance) delete _instance;
+        }
 
-    void operator=(const Main& other) = delete;
+    public:
+        Main(Main& other) = delete;
+        static Main* instance() {
+            if (_instance == nullptr) {
+                _instance = new Main();
+            }
+            return _instance;
+        }
 
-    void run() {
-        _application->init();
-        terminate();
-    }
+        void operator=(const Main& other) = delete;
+        
+        /**
+         * Starts the application
+        */
+        void run() {
+            _application->run();
+        }
+    };
 
-    void terminate() {
-        std::cout << "\n\n" << "Application terminated.\n";
-        pause();
-    }
-    void pause() {
-        std::cout << "Press any key to continue...\n";
-        fflush(stdin);
-        getchar();
-    }
-
-    void firstPresentation();
-    void secondPresentation();
+    Main* Main::_instance = nullptr;
 };
-
-Main* Main::_instance = nullptr;
-
-void Main::firstPresentation() {
-    auto [fileName, fileType] = PeopleFilesNames::NAME_AND_ID_10;
-    Sequential::List<Person> sequentialList = FileManager().readAsListSequential(fileName + "." + fileType);
-
-    std::cout << sequentialList << '\n';
-}
-void Main::secondPresentation() {
-    auto [fileName, fileType] = PeopleFilesNames::NAME_AND_ID_10;
-    Linked::List<Person> linkedList = FileManager().readAsListLinked(fileName + "." + fileType);
-
-    std::cout << linkedList << '\n';
-}
-
