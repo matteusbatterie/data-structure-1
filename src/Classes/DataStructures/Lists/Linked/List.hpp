@@ -51,12 +51,14 @@ namespace DataStructure::Lists::Linked
         T& find(const T data);
         T& findAt(int position);
 
+#pragma region Sorts
         List<T>* selectionSort();
         List<T>* insertionSort();
         List<T>* bubbleSort();
         List<T>* shellSort();
         List<T>* quickSort();
         List<T>* mergeSort();
+#pragma endregion
 
         // Temporary solution to display data in the screen.
         // TO DO: Implement an overload to the << operator.
@@ -73,6 +75,12 @@ namespace DataStructure::Lists::Linked
         // Returns a pointer to the end of the list
         Node<T>& end() const { return _last->next(); }
 
+#pragma region Auxiliary methods
+    private:
+        void swap(Node<T>* element, Node<T>* other);
+        void move(Node<T>* element, Node<T>* previous);
+#pragma endregion
+
 #pragma region Operator Overloads
         template <class E>
         friend std::ostream& operator<<(ostream& os, const List<E>& list);
@@ -87,8 +95,10 @@ namespace DataStructure::Lists::Linked
     template <class T>
     void List<T>::append(T data)
     {
+#pragma region Timer logic
         if (FeatureFlag::TIMER)
             Timer::begin();
+#pragma endregion
 
         _size++;
 
@@ -96,6 +106,7 @@ namespace DataStructure::Lists::Linked
         {
             _first = _last = new Node<T>(data);
 
+#pragma region Assignment and Condition Counting Logic
             if (FeatureFlag::ASSIGNMENT_COUNTER || FeatureFlag::CONDITION_COUNTER)
             {
                 std::cout << "\nAPPEND operation log:\n";
@@ -113,11 +124,15 @@ namespace DataStructure::Lists::Linked
                     std::cout << "Count of comparisons: " << conditionCount << '\n';
                 }
             }
+#pragma endregion
+#pragma region Timer logic
             if (FeatureFlag::TIMER)
             {
                 Timer::end();
                 std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms\n";
             }
+#pragma endregion
+
             return;
         }
 
@@ -126,9 +141,11 @@ namespace DataStructure::Lists::Linked
         _last->next(*newNode);
         _last = newNode;
 
+#pragma region Assignment and Condition Counting logic
         if (FeatureFlag::ASSIGNMENT_COUNTER || FeatureFlag::CONDITION_COUNTER)
         {
             std::cout << "\nAPPEND operation log:\n";
+
             if (FeatureFlag::ASSIGNMENT_COUNTER)
             {
                 long assignmentCount = 0;
@@ -143,11 +160,14 @@ namespace DataStructure::Lists::Linked
                 std::cout << "Count of comparisons: " << conditionCount << '\n';
             }
         }
+#pragma endregion
+#pragma region Timer logic
         if (FeatureFlag::TIMER)
         {
             Timer::end();
             std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms" << std::endl;
         }
+#pragma endregion
     }
 
     /**
@@ -158,8 +178,10 @@ namespace DataStructure::Lists::Linked
     template <class T>
     void List<T>::insert(T data, int position)
     {
+#pragma region Timer logic
         if (FeatureFlag::TIMER)
             Timer::begin();
+#pragma endregion
 
         if (position > _size || position < 0)
         {
@@ -179,6 +201,7 @@ namespace DataStructure::Lists::Linked
         {
             _first = _last = new Node<T>(data);
 
+#pragma region Assignment and Condition Counting logic
             if (FeatureFlag::ASSIGNMENT_COUNTER || FeatureFlag::CONDITION_COUNTER)
             {
                 std::cout << "\nINSERT operation log:\n";
@@ -198,11 +221,14 @@ namespace DataStructure::Lists::Linked
                     std::cout << "Count of comparisons: " << conditionCount << '\n';
                 }
             }
+#pragma endregion
+#pragma region Timer logic
             if (FeatureFlag::TIMER)
             {
                 Timer::end();
                 std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms\n";
             }
+#pragma endregion
 
             return;
         }
@@ -213,6 +239,8 @@ namespace DataStructure::Lists::Linked
             newNode->next(*_first);
             _first->previous(*newNode);
             _first = newNode;
+
+#pragma region Assignment and Condition Counting logic
             if (FeatureFlag::ASSIGNMENT_COUNTER || FeatureFlag::CONDITION_COUNTER)
             {
                 std::cout << "\nINSERT operation log:\n";
@@ -233,11 +261,14 @@ namespace DataStructure::Lists::Linked
                     std::cout << "Count of comparisons: " << conditionCount << '\n';
                 }
             }
+#pragma endregion
+#pragma region Timer logic
             if (FeatureFlag::TIMER)
             {
                 Timer::end();
                 std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms" << std::endl;
             }
+#pragma endregion
 
             return;
         }
@@ -254,6 +285,7 @@ namespace DataStructure::Lists::Linked
         previous->next(*newNode);
         iterator->previous(*newNode);
 
+#pragma region Assignment and Condition Counting logic
         if (FeatureFlag::ASSIGNMENT_COUNTER || FeatureFlag::CONDITION_COUNTER)
         {
             std::cout << "\nINSERT operation log:\n";
@@ -276,11 +308,14 @@ namespace DataStructure::Lists::Linked
                 std::cout << "Count of comparisons: " << conditionCount << '\n';
             }
         }
+#pragma endregion
+#pragma region Timer logic
         if (FeatureFlag::TIMER)
         {
             Timer::end();
             std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms\n";
         }
+#pragma endregion
     }
 
     /**
@@ -289,8 +324,10 @@ namespace DataStructure::Lists::Linked
     template <class T>
     void List<T>::pop()
     {
+#pragma region Timer logic
         if (FeatureFlag::TIMER)
             Timer::begin();
+#pragma endregion
 
         if (_size == 0)
         {
@@ -304,6 +341,7 @@ namespace DataStructure::Lists::Linked
         _last = &_last->previous();
         delete oldLast;
 
+#pragma region Assignment and Condition Counting logic
         if (FeatureFlag::ASSIGNMENT_COUNTER || FeatureFlag::CONDITION_COUNTER)
         {
             std::cout << "\nPOP operation log:\n";
@@ -321,11 +359,14 @@ namespace DataStructure::Lists::Linked
                 std::cout << "Count of comparisons: " << conditionCount << '\n';
             }
         }
+#pragma endregion
+#pragma region Timer logic
         if (FeatureFlag::TIMER)
         {
             Timer::end();
             std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms\n";
         }
+#pragma endregion
     }
 
     /**
@@ -335,8 +376,10 @@ namespace DataStructure::Lists::Linked
     template <class T>
     void List<T>::remove(int position)
     {
+#pragma region Timer logic
         if (FeatureFlag::TIMER)
             Timer::begin();
+#pragma endregion
 
         if (position > _size || position < 0)
         {
@@ -364,6 +407,7 @@ namespace DataStructure::Lists::Linked
             Node<T>* oldFirst = _first;
             _first = &_first->next();
 
+#pragma region Assignment and Condition Counting logic
             if (FeatureFlag::ASSIGNMENT_COUNTER || FeatureFlag::CONDITION_COUNTER)
             {
                 std::cout << "\nREMOVE operation log:\n";
@@ -382,11 +426,14 @@ namespace DataStructure::Lists::Linked
                     std::cout << "Count of comparisons: " << conditionCount << '\n';
                 }
             }
+#pragma endregion
+#pragma region Timer logic
             if (FeatureFlag::TIMER)
             {
                 Timer::end();
                 std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms\n";
             }
+#pragma endregion
             delete oldFirst;
             return;
         }
@@ -400,8 +447,10 @@ namespace DataStructure::Lists::Linked
         Node<T>* next = &iterator->next();
         next->previous(*previous);
         previous->next(*next);
+
         delete iterator;
 
+#pragma region Assignment and Condition Couting logic
         if (FeatureFlag::ASSIGNMENT_COUNTER || FeatureFlag::CONDITION_COUNTER)
         {
             std::cout << "\nREMOVE operation log:\n";
@@ -424,11 +473,14 @@ namespace DataStructure::Lists::Linked
                 std::cout << "Count of comparisons: " << conditionCount << '\n';
             }
         }
+#pragma endregion
+#pragma region Timer logic
         if (FeatureFlag::TIMER)
         {
             Timer::end();
             std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms\n";
         }
+#pragma endregion
     }
 
     /**
@@ -440,9 +492,38 @@ namespace DataStructure::Lists::Linked
     template <class T>
     T& List<T>::find(const T data)
     {
+#pragma region Timer logic
+        if (FeatureFlag::TIMER)
+            Timer::begin();
+#pragma endregion
+
         for (T& item : *this)
             if (item == data)
                 return item;
+
+#pragma region Assignment and Condition Counting logic
+        if (FeatureFlag::ASSIGNMENT_COUNTER || FeatureFlag::CONDITION_COUNTER)
+        {
+            if (FeatureFlag::ASSIGNMENT_COUNTER)
+            {
+                long assignmentCount = 0;
+                std::cout << "Count of assignments: " << assignmentCount << '\n';
+            }
+            if (FeatureFlag::CONDITION_COUNTER)
+            {
+                long conditionCount = 0;
+                conditionCount += _size;
+                std:: << "Count of comparisons: " << conditionCount << '\n';
+            }
+        }
+#pragma endregion
+#pragma region Timer logic
+        if (FeatureFlag::TIMER)
+        {
+            Timer::end();
+            std::cout << "Elapsed time: " << Timer::elapsedTime() << "ms\n";
+        }
+#pragma endregion
 
         throw std::exception();
     }
@@ -452,36 +533,52 @@ namespace DataStructure::Lists::Linked
      * @throw Standard exception if position is out of bounds
     */
     template <class T>
-    T& List<T>::findAt(int position) {
+    T& List<T>::findAt(int position)
+    {
         std::cout << "To be implemented.\n";
     }
 
+#pragma region Sorts
     /**
-     * Uses the Selection Sort method to sort the list
+     * The Selection Sort searchs for the smallest element in the list and replaces it with the
+     * first position, then it searchs for the second smallest element and replaces it with the
+     * second position, and so on.
      * @return Current list after sorting
     */
     template <class T>
     List<T>* List<T>::selectionSort()
     {
-        std::cout << "To be implemented.\n";
+        for (Node<T>* currentItem = _first; currentItem != _last->next(); currentItem++)
+        {
+            T* smallestElement = currentItem;
+            for (Node<T>* it = currentItem; it != _last->next(); it++)
+                if (it->data() < smallestElement)
+                    smallestElement = it;
+
+            swap(currentItem, smallestElement);
+        }
+
+        return this;
     }
     /**
-     * Uses the Insertion Sort method to sort the list
+     * The Insertion Sort compares each element in the loop with its previous elements
+     * until it finds a smaller element than itself. Once a smaller element is found,
+     * the current element is moved next to the smaller element
      * @return Current list after sorting
     */
     template <class T>
     List<T>* List<T>::insertionSort()
     {
-        std::cout << "To be implemented.\n";
-        // for (Node<T>* it = &_first->next(); it != &_last->next(); it++)
-        // {
-        //     Node<T>* currentElement = it;
+        for (Node<T>* iterator = _first->next(); iterator != _last->next(); iterator++)
+        {
+            Node<T>* other = iterator;
+            while (other != _first && iterator->data() < other->previous()->data()) {
+                other = other->previous();
+            }
 
-        //     Node<T>* it2 = it;
-        //     while(it2 != _first && *it2 <= it2->previous()) it2--;
+            insert(iterator, other, other->next());
+        }
 
-
-        // }
         return this;
     }
     /**
@@ -489,8 +586,18 @@ namespace DataStructure::Lists::Linked
      * @return Current list after sorting
     */
     template <class T>
-    List<T>* List<T>::bubbleSort() {
-        std::cout << "To be implemented.\n";
+    List<T>* List<T>::bubbleSort()
+    {
+        for (Node<T>* currentItem = _first; currentItem != _last; currentItem++)
+        {
+            while (currentItem > currentItem->next())
+            {
+
+                swap(currentItem, currentItem->next());
+            }
+        }
+
+        return this;
     }
     /**
      * To be implemented. Uses the Shell Sort method to sort the list
@@ -509,13 +616,66 @@ namespace DataStructure::Lists::Linked
         std::cout << "To be implemented.\n";
     }
     /**
-     * TO be implemented. Uses the Merge Sort method to sort the list
+     * To be implemented. Uses the Merge Sort method to sort the list
      * @return Current list after sorting
     */
     template <class T>
     List<T>* List<T>::mergeSort() {
         std::cout << "To be implemented.\n";
     }
+#pragma endregion
+
+#pragma region Auxiliary Methods
+    /**
+     * Swaps the position of a given element with another
+     * @param element Element that will swap position
+     * @param other Element which the position will be swapped with
+    */
+    template <class T>
+    void List<T>::swap(Node<T>* element, Node<T>* other)
+    {
+        Node<T>* previous = element->previous();
+        Node<T>* next = element->next();
+
+        if (_first == element) _first = other;
+        if (_first == other) _first = element;
+
+        if (_last == element) _last = other;
+        if (_last == other) _last = element;
+
+        element->previous(other->previous());
+        element->next(other->next());
+
+        other->previous(previous);
+        other->next(next);
+    }
+
+    /**
+     * Moves a given element to the next position of another.
+     * @param element Element to be moved
+     * @param newPrevious Element that should be positioned in the left of the moved element, or its new "previous"
+    */
+    template <class T>
+    void List<T>::move(Node<T>* element, Node<T>* newPrevious)
+    {
+        if (_first == element) _first = element->next();
+
+        if (_last == element) _last = element->previous();
+        if (_last == newPrevious) _last = element;
+
+        Node<T>* previous = element->previous();
+        Node<T>* next = element->next();
+        previous->next(next);
+        next->previous(previous);
+
+        Node<T>* newNext = newPrevious->next();
+        element->previous(newPrevious);
+        element->next(newNext);
+
+        newPrevious->next(element);
+        newNext->previous(element);
+    }
+#pragma endregion
 
 #pragma region Operator Overloads
     template <class T>

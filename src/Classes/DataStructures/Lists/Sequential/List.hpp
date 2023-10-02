@@ -22,8 +22,7 @@ namespace DataStructure::Lists::Sequential
         unsigned long _size;
 
     public:
-        List(const List<T>& copy)
-        {
+        List(const List<T>& copy) {
             _first = new T[copy.size()];
             std::copy(copy._first, copy._first + copy.size(), _first);
             _size = copy.size();
@@ -32,8 +31,7 @@ namespace DataStructure::Lists::Sequential
             _first = array;
             _size = size;
         }
-        List()
-        {
+        List() {
             this->_first = new T[0];
             this->_size = 0;
         }
@@ -55,12 +53,14 @@ namespace DataStructure::Lists::Sequential
         void findAt(int position) const;
         void findAndPrint(const T data) const;
 
+#pragma region Sorts
         List<T>* selectionSort();
         List<T>* insertionSort();
         List<T>* bubbleSort();
         List<T>* shellSort();
         List<T>* quickSort();
         List<T>* mergeSort();
+#pragma endregion
 
         // Temporary solution to display data in the screen.
         // TO DO: Implement an overload to the << operator.
@@ -108,7 +108,7 @@ namespace DataStructure::Lists::Sequential
         delete[] _first;
         _first = newList;
 
-#pragma region Assignment and Condition Couting logic
+#pragma region Assignment and Condition Counting logic
         if (FeatureFlag::ASSIGNMENT_COUNTER || FeatureFlag::CONDITION_COUNTER)
         {
             std::cout << "\n\nAPPEND operation log:\n";
@@ -346,7 +346,6 @@ namespace DataStructure::Lists::Sequential
         if (FeatureFlag::TIMER)
             Timer::begin();
 #pragma endregion
-
 #pragma region Assignment and Condition Counting logic
         long iterations = 0;
 #pragma endregion
@@ -409,7 +408,6 @@ namespace DataStructure::Lists::Sequential
         if (FeatureFlag::TIMER)
             Timer::begin();
 #pragma endregion
-
 #pragma region Assignment and Condition Counting logic
         long iterations = 0;
 #pragma endregion
@@ -442,7 +440,6 @@ namespace DataStructure::Lists::Sequential
             }
         }
 #pragma endregion
-
 #pragma region Timer logic
         if (FeatureFlag::TIMER)
         {
@@ -452,6 +449,7 @@ namespace DataStructure::Lists::Sequential
 #pragma endregion
     }
 
+#pragma region Sorts
     /**
      * Uses the Selection Sort method to sort the list
      * @return Current list after sorting
@@ -730,7 +728,7 @@ namespace DataStructure::Lists::Sequential
     template <class T>
     List<T>* List<T>::mergeSort()
     {
-#pragma region Timer logic
+        #pragma region Timer logic
         if (FeatureFlag::TIMER)
             Timer::begin();
 #pragma endregion
@@ -757,7 +755,6 @@ namespace DataStructure::Lists::Sequential
             }
         }
 #pragma endregion
-
 #pragma region Timer logic
         if (FeatureFlag::TIMER) {
             Timer::end();
@@ -767,6 +764,7 @@ namespace DataStructure::Lists::Sequential
 
         return this;
     }
+#pragma endregion
 
 #pragma region Auxiliary methods
     /**
